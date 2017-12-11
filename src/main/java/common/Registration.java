@@ -16,12 +16,12 @@ public class Registration extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/reg.fxml"));
-
-        Scene scene = new Scene(root, 379, 300);
-
-        stage.setTitle("Регистрация");
-        stage.setScene(scene);
-        stage.show();
+//        Parent root = FXMLLoader.load(getClass().getResource("/reg.fxml"));
+//
+//        Scene scene = new Scene(root, 379, 300);
+//
+//        stage.setTitle("Регистрация");
+//        stage.setScene(scene);
+//        stage.show();
     }
 }

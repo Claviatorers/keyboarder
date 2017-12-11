@@ -1,4 +1,4 @@
-package common;
+package admin;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,22 +8,19 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Authorization extends Application {
 
+public class Menu extends Application {
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/auth.fxml"));
-        Parent root = loader.load();
+        Parent root = FXMLLoader.load(getClass().getResource("/adminMenu.fxml"));
 
-        Scene scene = new Scene(root, 300, 275);
-        AuthController controller = loader.getController();
-        controller.setStage(stage);
+        Scene scene = new Scene(root, 450, 350);
 
-        stage.setTitle("Авторизация");
+        stage.setTitle("Меню");
         stage.setScene(scene);
         stage.show();
     }
