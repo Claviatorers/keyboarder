@@ -1,5 +1,6 @@
 package common;
 
+import common.auth.Authorization;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -11,6 +12,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        new Authorization();
+        Authorization authorization = new Authorization();
+        authorization.show();
     }
 }
