@@ -8,12 +8,15 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class AuthController {
+public class RegController {
+    private Stage prevStage;
 
-
-    public void toRegistration(ActionEvent actionEvent) throws Exception {
-        new Registration();
+    void init(Stage prevStage) {
+        this.prevStage = prevStage;
     }
 
-
+    void close(){
+        prevStage.show();
+    }
 }
+

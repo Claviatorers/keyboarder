@@ -1,27 +1,30 @@
 package common;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
-public class Registration extends Application {
+public class Registration {
+    
 
-    public static void main(String[] args) {
-        launch(args);
+    public Registration() throws Exception
+    {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/reg.fxml"));
+        Parent root = loader.load();
+        RegController regController = loader.getController();
+        Stage stage = new Stage();
+        stage.setTitle("Регистрация");
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+
     }
 
-    @Override
-    public void start(Stage stage) throws IOException {
-//        Parent root = FXMLLoader.load(getClass().getResource("/reg.fxml"));
-//
-//        Scene scene = new Scene(root, 379, 300);
-//
-//        stage.setTitle("Регистрация");
-//        stage.setScene(scene);
-//        stage.show();
-    }
 }
