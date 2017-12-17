@@ -1,5 +1,6 @@
 package admin;
 
+import common.registration.RegistrationController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,19 +10,28 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 
-public class Menu extends Application {
-    public static void main(String[] args) {
-        launch(args);
+public class Menu {
+    private Stage stage;
+
+    public Menu() throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/adminMenu.fxml"));
+        Parent root = loader.load();
+        MenuController menuController = loader.getController();
+        stage = new Stage();
+        stage.setTitle("Администратор");
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setOnHidden(event -> {
+            try {
+                menuController.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        menuController.init(stage);
     }
 
-    @Override
-    public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/adminMenu.fxml"));
-
-        Scene scene = new Scene(root, 450, 350);
-
-        stage.setTitle("Меню");
-        stage.setScene(scene);
+    public void show() {
         stage.show();
     }
 }
