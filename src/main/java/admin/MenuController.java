@@ -1,6 +1,9 @@
 package admin;
 
 import common.auth.Authorization;
+import common.changePassword.ChangePassword;
+import common.registration.Registration;
+import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -16,5 +19,12 @@ public class MenuController {
         stage.hide();
         Authorization authorization = new Authorization();
         authorization.show();
+
+    } public void changePassword(ActionEvent actionEvent) throws Exception {
+        stage.hide();
+        ChangePassword changePassword = new ChangePassword();
+        changePassword.show();
     }
+
+
 }

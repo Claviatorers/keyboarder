@@ -37,7 +37,7 @@
           <Font size="14.0" />
         </font>
     </Label>
-    <PasswordField focusTraversable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="140.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+    <PasswordField fx:id="password" id="password" focusTraversable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="140.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
         <GridPane.margin>
           <Insets right="50.0" />
         </GridPane.margin>
