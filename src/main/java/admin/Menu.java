@@ -1,7 +1,5 @@
 package admin;
 
-import common.registration.RegistrationController;
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -21,9 +19,9 @@ public class Menu {
         stage.setTitle("Администратор");
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setOnHidden(event -> {
+        stage.setOnCloseRequest(event -> {
             try {
-                menuController.close();
+                menuController.backToAuthorization();
             } catch (IOException e) {
                 e.printStackTrace();
             }

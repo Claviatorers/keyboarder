@@ -15,16 +15,15 @@ public class MenuController {
         this.stage = stage;
     }
 
-    void close() throws IOException {
+    void backToAuthorization() throws IOException {
         stage.hide();
         Authorization authorization = new Authorization();
         authorization.show();
 
     } public void changePassword(ActionEvent actionEvent) throws Exception {
-        stage.hide();
+        stage.close();
         ChangePassword changePassword = new ChangePassword();
         changePassword.show();
     }
-
 
 }
