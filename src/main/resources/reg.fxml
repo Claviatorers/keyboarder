@@ -54,25 +54,25 @@
             <Font size="14.0" />
         </font>
     </Label>
-    <PasswordField accessibleRole="TEXT_FIELD" focusTraversable="false" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="140.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+    <TextField fx:id="name" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="140.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+        <GridPane.margin>
+            <Insets right="45.0" />
+        </GridPane.margin>
+    </TextField>
+    <TextField fx:id="login" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="140.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+        <GridPane.margin>
+            <Insets right="45.0" />
+        </GridPane.margin>
+    </TextField>
+    <Button mnemonicParsing="false" onAction="#register" prefHeight="25.0" prefWidth="136.0" text="Зарегистрироваться" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
+    <PasswordField fx:id="password" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="140.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
         <GridPane.margin>
             <Insets right="45.0" />
         </GridPane.margin>
     </PasswordField>
-    <TextField maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="140.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM">
+    <PasswordField fx:id="password2" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="140.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
         <GridPane.margin>
             <Insets right="45.0" />
         </GridPane.margin>
-    </TextField>
-    <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="136.0" text="Зарегистрироваться" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-    <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="140.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
-        <GridPane.margin>
-            <Insets right="45.0" />
-        </GridPane.margin>
-    </TextField>
-    <TextField maxWidth="-Infinity" minWidth="-Infinity" prefWidth="140.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
-        <GridPane.margin>
-            <Insets right="45.0" />
-        </GridPane.margin>
-    </TextField>
+    </PasswordField>
 </GridPane>
