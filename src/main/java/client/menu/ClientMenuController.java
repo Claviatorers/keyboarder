@@ -1,15 +1,21 @@
-package admin;
+package client.menu;
 
+import common.DataBase;
 import common.auth.Authorization;
 import common.changePassword.ChangePassword;
-import common.registration.Registration;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MenuController {
+public class ClientMenuController {
+    private DataBase dataBase;
+    private String login;
     private Stage stage;
+    @FXML
+    Label name;
 
     void init(Stage stage) {
         this.stage = stage;
@@ -27,4 +33,13 @@ public class MenuController {
         changePassword.show();
     }
 
+    void setLogin(String login){
+        this.login = login;
+        setName();
+    }
+
+    private void setName(){
+        dataBase = new DataBase();
+        name.setText(dataBase.getName(login));
+    }
 }

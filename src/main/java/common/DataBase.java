@@ -79,6 +79,27 @@ public class DataBase {
         return result;
     }
 
+    public String getName(String login){
+        String result="";
+        String query = "select name from User WHERE Login = '" + login + "'";
+        try {
+            con = DriverManager.getConnection(url, user, this.password);
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+            rs.next();
+            result = rs.getString("name");
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        } finally {
+            //close connection ,stmt and resultset here
+            try { con.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { stmt.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { rs.close(); } catch(SQLException se) { /*can't do anything */ }
+        }
+        return result;
+    }
+
+
     public static void main(String args[]) throws SQLException {
         DataBase d = new DataBase();
         System.out.println(d.getPassword("john"));

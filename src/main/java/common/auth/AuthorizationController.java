@@ -1,6 +1,7 @@
 package common.auth;
 
 import admin.Menu;
+import client.menu.ClientMenu;
 import common.DataBase;
 import common.registration.Registration;
 import javafx.event.ActionEvent;
@@ -39,9 +40,14 @@ public class AuthorizationController {
             Menu menu = new Menu();
             menu.show();
         }
+        else if (!loginText.equals("admin") && dataBase.isExistLogin(loginText) &&  passwordText.equals(dataBase.getPassword(loginText))) {
+            stage.hide();
+            ClientMenu clientMenu = new ClientMenu(loginText);
+            clientMenu.show();
+        }
         else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Неверный пароль!");
+            alert.setHeaderText("Неверный пароль или логин!");
             alert.showAndWait();
         }
 

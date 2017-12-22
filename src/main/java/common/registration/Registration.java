@@ -3,6 +3,7 @@ package common.registration;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -18,6 +19,8 @@ public class Registration {
         stage.setTitle("Регистрация");
         Scene scene = new Scene(root);
         stage.setScene(scene);
+        Image ico = new Image("images/iconLogo.png");
+        stage.getIcons().add(ico);
         stage.setOnHidden(event -> {
             try {
                 registrationController.close();
