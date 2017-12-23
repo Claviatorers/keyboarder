@@ -1,5 +1,6 @@
 package admin;
 
+import admin.levelSet.LevelSet;
 import common.auth.Authorization;
 import common.changePassword.ChangePassword;
 import common.registration.Registration;
@@ -21,10 +22,17 @@ public class MenuController {
         authorization.show();
 
     }
+
+
     public void changePassword(ActionEvent actionEvent) throws Exception {
         stage.close();
         ChangePassword changePassword = new ChangePassword();
         changePassword.show();
     }
 
+    public void levelSet(ActionEvent actionEvent) throws Exception {
+        stage.close();
+        LevelSet levelSet = new LevelSet();
+        levelSet.show();
+    }
 }

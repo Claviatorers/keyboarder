@@ -99,6 +99,53 @@ public class DataBase {
         return result;
     }
 
+    public String[] getLevelSets(String level){
+        p = new Properties();
+        p.setProperty("user",user);
+        p.setProperty("password", this.password);
+        p.setProperty("useUnicode","true");
+        p.setProperty("characterEncoding","cp1251");
+        String[] sets = new String[3];
+        String query = "select Time_of_character_pressing, Max_length_execirse, Percentage_of_errors from Difficulty_level WHERE Name_level = '" + level + "'";
+        try {
+            con = DriverManager.getConnection(url, p);
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+            rs.next();
+            sets[0] = rs.getString("Time_of_character_pressing");
+            sets[1] = rs.getString("Max_length_execirse");
+            sets[2] = rs.getString("Percentage_of_errors");
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        } finally {
+            //close connection ,stmt and resultset here
+            try { con.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { stmt.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { rs.close(); } catch(SQLException se) { /*can't do anything */ }
+        }
+        return sets;
+    }
+
+    public void setLevelSets(String level, Double time, Integer length, Integer mistakes ){
+        p = new Properties();
+        p.setProperty("user",user);
+        p.setProperty("password", this.password);
+        p.setProperty("useUnicode","true");
+        p.setProperty("characterEncoding","cp1251");
+        String query = "UPDATE Difficulty_level SET Time_of_character_pressing = " + time + ", Max_length_execirse = " + length + ", Percentage_of_errors = " + mistakes + " WHERE Name_level = '" + level + "';";
+        try {
+            con = DriverManager.getConnection(url, p);
+            stmt = con.createStatement();
+            stmt.executeUpdate(query);
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        } finally {
+            //close connection ,stmt and resultset here
+            try { con.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { stmt.close(); } catch(SQLException se) { /*can't do anything */ }
+        }
+    }
+
 
     public static void main(String args[]) throws SQLException {
         DataBase d = new DataBase();
