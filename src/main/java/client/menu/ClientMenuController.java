@@ -29,7 +29,7 @@ public class ClientMenuController {
     }
     public void changePassword(ActionEvent actionEvent) throws Exception {
         stage.close();
-        ChangePassword changePassword = new ChangePassword();
+        ChangePassword changePassword = new ChangePassword(login);
         changePassword.show();
     }
 

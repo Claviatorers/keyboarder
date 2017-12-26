@@ -34,6 +34,27 @@ public class RegistrationController {
         authorization.show();
     }
 
+    @FXML
+    public void initialize(){
+        login.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue.matches("[a-zA-Z]{0,10}")) {
+                login.textProperty().setValue(oldValue);
+            }
+        });
+
+        name.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue.matches("[а-яА-Я]{0,20}")) {
+                name.textProperty().setValue(oldValue);
+            }
+        });
+
+        password.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue.matches("[^\\s]{0,10}")) {
+                password.textProperty().setValue(oldValue);
+            }
+        });
+    }
+
 
     public void register(ActionEvent actionEvent) throws IOException {
         dataBase = new DataBase();
@@ -45,6 +66,13 @@ public class RegistrationController {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Ошибка!");
             alert.setHeaderText("Заполните все поля!");
+            alert.showAndWait();
+            return;
+        }
+        if(passwordText.length() < 5){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Ошибка!");
+            alert.setHeaderText("Пароль слишком короткий!");
             alert.showAndWait();
             return;
         }

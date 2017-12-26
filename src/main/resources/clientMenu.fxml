@@ -36,7 +36,7 @@
          <GridPane.margin>
             <Insets left="10.0" />
          </GridPane.margin></Label>
-      <Button mnemonicParsing="false" text="But" GridPane.columnIndex="2" GridPane.halignment="LEFT" />
+      <Button mnemonicParsing="false" text="ред" GridPane.columnIndex="2" GridPane.halignment="LEFT" />
       <Label prefHeight="17.0" prefWidth="35.0" text="Имя:" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="40.0" />
@@ -52,7 +52,7 @@
       <Label fx:id="name" prefHeight="17.0" prefWidth="48.0" text="Сара" GridPane.columnIndex="2" GridPane.rowIndex="1" />
       <Label text="Начальный" GridPane.columnIndex="2" GridPane.rowIndex="2" />
       <Label text="01.01.2017" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="88.0" text="Статистика" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+      <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="88.0" text="Статистика" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="5">
          <GridPane.margin>
             <Insets />
          </GridPane.margin></Button>

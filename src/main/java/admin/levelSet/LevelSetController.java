@@ -21,6 +21,34 @@ public class LevelSetController {
     @FXML
     Spinner<Integer> mistakePercent;
 
+    @FXML
+    public void initialize(){
+        level.getItems().addAll("Начальный", "Легкий", "Средний", "Сложный", "Очень сложный");
+        level.setValue("Начальный");
+        SpinnerValueFactory<Double> timeFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.2, 2, 0.2, 0.1);
+        SpinnerValueFactory<Integer> lengthFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(15,150,15);
+        SpinnerValueFactory<Integer> mistakeFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,10,0);
+        pressTime.setValueFactory(timeFactory);
+        maxLength.setValueFactory(lengthFactory);
+        mistakePercent.setValueFactory(mistakeFactory);
+        pressTime.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue.matches("\\d*\\,?\\d*")) {
+                pressTime.getEditor().textProperty().setValue(oldValue);
+            }
+        });
+        maxLength.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue.matches("\\d*")) {
+                maxLength.getEditor().textProperty().setValue(oldValue);
+            }
+        });
+        mistakePercent.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue.matches("\\d*")) {
+                mistakePercent.getEditor().textProperty().setValue(oldValue);
+            }
+        });
+    }
+
+
     void init(Stage stage) {
         this.stage = stage;
     }
@@ -32,14 +60,7 @@ public class LevelSetController {
     }
 
     public void setValues(){
-        level.getItems().addAll("Начальный", "Легкий", "Средний", "Сложный", "Очень сложный");
-        level.setValue("Начальный");
-        SpinnerValueFactory<Double> timeFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.2, 2, 0.2, 0.1);
-        SpinnerValueFactory<Integer> lengthFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(15,150,15);
-        SpinnerValueFactory<Integer> mistakeFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,10,0);
-        pressTime.setValueFactory(timeFactory);
-        maxLength.setValueFactory(lengthFactory);
-        mistakePercent.setValueFactory(mistakeFactory);
+
         getValues();
     }
 

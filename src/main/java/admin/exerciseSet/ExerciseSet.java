@@ -1,35 +1,33 @@
-package common.changePassword;
+package admin.exerciseSet;
 
-
+import admin.levelSet.LevelSetController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-
-public class ChangePassword {
+public class ExerciseSet {
     private Stage stage;
 
-    public ChangePassword(String login) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/changePassword.fxml"));
+    public ExerciseSet() throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/exerciseSet.fxml"));
         Parent root = loader.load();
-        ChangePasswordController changePasswordController = loader.getController();
-        changePasswordController.setLogin(login);
+        ExerciseSetController exerciseSetController = loader.getController();
         stage = new Stage();
-        stage.setTitle("Изменить пароль");
+        stage.setTitle("Настройка упражнений");
         Scene scene = new Scene(root);
         stage.setScene(scene);
         Image ico = new Image("images/iconLogo.png");
         stage.getIcons().add(ico);
-        stage.setOnHidden(event -> {
+        stage.setOnCloseRequest(event -> {
             try {
-                changePasswordController.close();
+                exerciseSetController.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
-        changePasswordController.init(stage);
+        exerciseSetController.init(stage);
     }
 
     public void show() {

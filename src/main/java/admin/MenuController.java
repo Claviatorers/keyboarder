@@ -1,6 +1,8 @@
 package admin;
 
+import admin.exerciseSet.ExerciseSet;
 import admin.levelSet.LevelSet;
+import admin.userAccounts.UserAccounts;
 import common.auth.Authorization;
 import common.changePassword.ChangePassword;
 import common.registration.Registration;
@@ -23,10 +25,9 @@ public class MenuController {
 
     }
 
-
     public void changePassword(ActionEvent actionEvent) throws Exception {
         stage.close();
-        ChangePassword changePassword = new ChangePassword();
+        ChangePassword changePassword = new ChangePassword("admin");
         changePassword.show();
     }
 
@@ -34,5 +35,17 @@ public class MenuController {
         stage.close();
         LevelSet levelSet = new LevelSet();
         levelSet.show();
+    }
+
+    public void exerciseSet(ActionEvent actionEvent) throws Exception {
+        stage.close();
+        ExerciseSet exerciseSet = new ExerciseSet();
+        exerciseSet.show();
+    }
+
+    public void userAccounts(ActionEvent actionEvent) throws Exception {
+        stage.close();
+        UserAccounts userAccounts = new UserAccounts();
+        userAccounts.show();
     }
 }

@@ -1,7 +1,12 @@
 package common;
 
+import javafx.beans.InvalidationListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+
 import java.sql.*;
-import java.util.Properties;
+import java.util.*;
 
 public class DataBase {
     private static final String url = "jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11194797";
@@ -14,15 +19,14 @@ public class DataBase {
     private Properties p;
 
     public DataBase(){
-
-    }
-
-    public void registration(String name, String login, String password, String password2) {
         p = new Properties();
         p.setProperty("user",user);
         p.setProperty("password", this.password);
         p.setProperty("useUnicode","true");
         p.setProperty("characterEncoding","cp1251");
+    }
+
+    public void registration(String name, String login, String password, String password2) {
         String query = "INSERT INTO User (Login, Name, Password) \n VALUES ('" + login + "', '" + name + "', '" + password2 + "');";
         try {
             con = DriverManager.getConnection(url, p);
@@ -127,11 +131,6 @@ public class DataBase {
     }
 
     public void setLevelSets(String level, Double time, Integer length, Integer mistakes ){
-        p = new Properties();
-        p.setProperty("user",user);
-        p.setProperty("password", this.password);
-        p.setProperty("useUnicode","true");
-        p.setProperty("characterEncoding","cp1251");
         String query = "UPDATE Difficulty_level SET Time_of_character_pressing = " + time + ", Max_length_execirse = " + length + ", Percentage_of_errors = " + mistakes + " WHERE Name_level = '" + level + "';";
         try {
             con = DriverManager.getConnection(url, p);
@@ -146,9 +145,69 @@ public class DataBase {
         }
     }
 
+    public void changePassword(String login, String newPassword){
+        String query = "UPDATE User SET password = '" + newPassword + "' WHERE login = '" + login + "';";
+        try {
+            con = DriverManager.getConnection(url, p);
+            stmt = con.createStatement();
+            stmt.executeUpdate(query);
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        } finally {
+            //close connection ,stmt and resultset here
+            try { con.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { stmt.close(); } catch(SQLException se) { /*can't do anything */ }
+        }
+    }
+
+    public ObservableList<String> getExercise(int level){
+        ObservableList<String> exercise = FXCollections.observableArrayList();
+        String query = "select Text_execirse from Execirse WHERE Number_difficulty_level = '" + level + "'";
+        try {
+            con = DriverManager.getConnection(url, user, this.password);
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                exercise.add(rs.getString("Text_execirse"));
+            }
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        } finally {
+            //close connection ,stmt and resultset here
+            try { con.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { stmt.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { rs.close(); } catch(SQLException se) { /*can't do anything */ }
+        }
+        return exercise;
+    }
+
+    public ObservableList<String> getUsers(){
+        ObservableList<String> exercise = FXCollections.observableArrayList();
+        String query = "select login from User WHERE login != 'admin'";
+        try {
+            con = DriverManager.getConnection(url, p);
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                exercise.add(rs.getString("login"));
+            }
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        } finally {
+            //close connection ,stmt and resultset here
+            try { con.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { stmt.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { rs.close(); } catch(SQLException se) { /*can't do anything */ }
+        }
+        return exercise;
+    }
 
     public static void main(String args[]) throws SQLException {
         DataBase d = new DataBase();
-        System.out.println(d.getPassword("john"));
+        ObservableList<String> res = d.getExercise(1);
+        for (String el: res) {
+            System.out.println(el);
+        }
+
     }
 }

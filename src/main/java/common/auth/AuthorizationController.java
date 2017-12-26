@@ -32,6 +32,7 @@ public class AuthorizationController {
         String passwordText = password.getText();
         if(loginText.isEmpty() || passwordText.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Ошибка!");
             alert.setHeaderText("Заполните все поля!");
             alert.showAndWait();
         }
@@ -55,6 +56,17 @@ public class AuthorizationController {
 
     void init(Stage stage) {
         this.stage = stage;
+    }
+
+    @FXML
+    public void initialize(){
+        login.textProperty().addListener((observable, oldValue, newValue) -> {
+            if(!newValue.matches("[a-zA-Z]{0,10}")) {
+                login.textProperty().setValue(oldValue);
+            }
+        });
+
+
     }
 
 }
