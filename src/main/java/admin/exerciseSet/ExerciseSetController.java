@@ -1,6 +1,7 @@
 package admin.exerciseSet;
 
 import admin.Menu;
+import admin.addExercise.AddExercise;
 import common.DataBase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -43,5 +44,12 @@ public class ExerciseSetController {
 
     public void changeLevel(ActionEvent actionEvent) {
         setExercises();
+    }
+
+    public void add(ActionEvent actionEvent) throws Exception {
+        stage.close();
+        int levelNum = level.getItems().indexOf(level.getValue()) + 1;
+        AddExercise addExercise = new AddExercise(levelNum);
+        addExercise.show();
     }
 }

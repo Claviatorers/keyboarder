@@ -41,6 +41,21 @@ public class DataBase {
         }
     }
 
+    public void addExercise(int levelNum, String text){
+        String query = "INSERT INTO Execirse (Number_difficulty_level, Text_execirse, Number_execirse) \n VALUES ('" + levelNum + "', '" + text + "', '" + 0 + "');";
+        try {
+            con = DriverManager.getConnection(url, p);
+            stmt = con.createStatement();
+            stmt.executeUpdate(query);
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        } finally {
+            //close connection ,stmt and resultset here
+            try { con.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { stmt.close(); } catch(SQLException se) { /*can't do anything */ }
+        }
+    }
+
     public boolean isExistLogin(String log){
         int count = 0;
         String query = "select * from User WHERE Login = '" + log + "'";
@@ -104,11 +119,6 @@ public class DataBase {
     }
 
     public String[] getLevelSets(String level){
-        p = new Properties();
-        p.setProperty("user",user);
-        p.setProperty("password", this.password);
-        p.setProperty("useUnicode","true");
-        p.setProperty("characterEncoding","cp1251");
         String[] sets = new String[3];
         String query = "select Time_of_character_pressing, Max_length_execirse, Percentage_of_errors from Difficulty_level WHERE Name_level = '" + level + "'";
         try {
@@ -119,6 +129,27 @@ public class DataBase {
             sets[0] = rs.getString("Time_of_character_pressing");
             sets[1] = rs.getString("Max_length_execirse");
             sets[2] = rs.getString("Percentage_of_errors");
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        } finally {
+            //close connection ,stmt and resultset here
+            try { con.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { stmt.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { rs.close(); } catch(SQLException se) { /*can't do anything */ }
+        }
+        return sets;
+    }
+
+    public String[] getCharAndLength(int levelNum){
+        String[] sets = new String[2];
+        String query = "select Max_length_execirse, Allowable_characters from Difficulty_level WHERE Number_difficulty_level = '" + levelNum + "'";
+        try {
+            con = DriverManager.getConnection(url, p);
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+            rs.next();
+            sets[0] = rs.getString("Allowable_characters");
+            sets[1] = rs.getString("Max_length_execirse");
         } catch (SQLException sqlEx) {
             sqlEx.printStackTrace();
         } finally {
@@ -202,9 +233,11 @@ public class DataBase {
         return exercise;
     }
 
+
+
     public static void main(String args[]) throws SQLException {
         DataBase d = new DataBase();
-        ObservableList<String> res = d.getExercise(1);
+        String[] res = d.getCharAndLength(1);
         for (String el: res) {
             System.out.println(el);
         }
