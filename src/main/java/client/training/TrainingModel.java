@@ -1,37 +1,73 @@
 package client.training;
 
 import client.Exercise;
+import client.Mode;
 
 /**
  * Created by User on 16.09.2017
  */
-public class TrainingModel {
-    private Exercise exercise;
-    private int currentMistakes = 0;
-    //todo Timer
-    private int currentPosition = 0;
+abstract class TrainingModel {
+    private int leftTime = 0;
 
+    protected Exercise exercise;
+    protected int currentPosition = 0;
 
-    public TrainingModel(Exercise exercise) {
+    TrainingModel(Exercise exercise) {
         this.exercise = exercise;
     }
 
-    public boolean checkSymbol(char symbol) {
+    static TrainingModel getTrainingModel(Mode mode, Exercise exercise){
+        switch (mode){
+            case Time: return new TrainingModelTime(exercise);
+            case Score: return new TrainingModelScore(exercise);
+        }
+
+        throw new IllegalArgumentException("Неизвестый режим");
+    }
+
+    public boolean inputSymbol(char symbol) {
+        if (isDone() || isFailed()) return false;
+
         if (exercise.getText().charAt(currentPosition) == symbol) {
-            currentPosition++;
+            rightSymbolPressed();
             return true;
         }
         else{
-            currentMistakes++;
+            wrongSymbolPressed();
             return false;
         }
     }
 
-    public boolean isDone() {
-        return currentPosition >= exercise.getText().length();
+    protected abstract void rightSymbolPressed();
+
+    protected abstract void wrongSymbolPressed();
+
+    int getMaxTime() {
+        return (int) Math.round(exercise.getKeyPressTime() * exercise.getText().length()) + 1;
     }
 
-    public boolean isFailed() {
-        return currentMistakes >= exercise.getMaxMistakes();
+    abstract boolean isDone();
+
+    abstract boolean isFailed();
+
+    void decreaseTime() {
+        leftTime--;
+    }
+
+    void reset() {
+        leftTime = getMaxTime();
+    }
+
+    int getLeftTime() {
+        return leftTime;
+    }
+
+
+    String getText() {
+        return exercise.getText();
+    }
+
+    int getCurrentPosition(){
+        return currentPosition;
     }
 }

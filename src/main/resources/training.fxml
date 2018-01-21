@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.TextFlow?>
+
+<GridPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.training.TrainingController">
+    <TextFlow prefHeight="107.0" prefWidth="600.0" GridPane.rowIndex="1" fx:id="exerciseText"/>
+    <HBox alignment="CENTER_RIGHT" prefHeight="42.0" prefWidth="600.0">
+        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+            <Label text="Ошибки" fx:id="countNameLabel"/>
+            <Label text="0/0" fx:id="countLabel"/>
+        </VBox>
+        <VBox alignment="CENTER" prefHeight="68.0" prefWidth="100.0">
+            <Label text="Время" />
+            <Label text="00:00" fx:id="timeLabel"/>
+        </VBox>
+    </HBox>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>

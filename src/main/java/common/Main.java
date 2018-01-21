@@ -1,5 +1,9 @@
 package common;
 
+import client.DifficultyLevel;
+import client.Exercise;
+import client.Mode;
+import client.training.TrainingForm;
 import common.auth.Authorization;
 import javafx.application.Application;
 import javafx.stage.Stage;

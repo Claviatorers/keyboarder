@@ -1,7 +1,5 @@
 package client;
 
-import java.time.LocalTime;
-
 /**
  * Created by User on 16.09.2017
  */
@@ -10,10 +8,10 @@ public class Exercise {
 
     private String text;
     private DifficultyLevel difficultyLevel;
-    private LocalTime keyPressTime;
+    private double keyPressTime;
     private int maxMistakes;
 
-    public Exercise(int number, String text, DifficultyLevel difficultyLevel, LocalTime keyPressTime, int maxMistakes) {
+    public Exercise(int number, String text, DifficultyLevel difficultyLevel, double keyPressTime, int maxMistakes) {
         this.number = number;
         this.text = text;
         this.difficultyLevel = difficultyLevel;
@@ -33,11 +31,11 @@ public class Exercise {
         return difficultyLevel;
     }
 
-    public LocalTime getKeyPressTime() {
+    public double getKeyPressTime() {
         return keyPressTime;
     }
 
     public int getMaxMistakes() {
-        return maxMistakes;
+        return (int) Math.round((double) maxMistakes / 100 * getText().length()) + 1;
     }
 }
