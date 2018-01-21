@@ -30,11 +30,11 @@
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin></Button>
-            <Button mnemonicParsing="false" text="Изменить">
+            <Button onAction="#edit" mnemonicParsing="false" text="Изменить">
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin></Button>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Удалить">
+            <Button onAction="#delete" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Удалить">
                <HBox.margin>
                   <Insets left="10.0" right="10.0" />
                </HBox.margin></Button>
