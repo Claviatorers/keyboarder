@@ -72,7 +72,6 @@ public class EditAccountController {
             stage.hide();
             Authorization authorization = new Authorization();
             authorization.show();
-
         }
     }
 }
