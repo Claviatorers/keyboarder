@@ -3,9 +3,11 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
 <GridPane prefHeight="350.0" prefWidth="450.0" vgap="3.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.menu.ClientMenuController">
     <columnConstraints>
@@ -22,11 +24,22 @@
         <RowConstraints maxHeight="129.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Начальный" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Легкий" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Средний" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER" />
-        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Сложный" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER" />
-        <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" text="Очень сложный" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" GridPane.valignment="CENTER" />
+        <VBox fx:id="buttonsBox" alignment="CENTER" prefHeight="264.0" prefWidth="285.0" GridPane.columnIndex="4" GridPane.rowIndex="1" GridPane.rowSpan="5">
+            <Button mnemonicParsing="false" onAction="#beginnerPressed" prefHeight="25.0" prefWidth="150.0" text="Начальный"  />
+            <Button mnemonicParsing="false" onAction="#easyPressed" prefHeight="25.0" prefWidth="150.0" text="Легкий" />
+            <Button mnemonicParsing="false" onAction="#mediumPressed" prefHeight="25.0" prefWidth="150.0" text="Средний" />
+            <Button mnemonicParsing="false" onAction="#hardPressed" prefHeight="25.0" prefWidth="150.0" text="Сложный" />
+            <Button mnemonicParsing="false" onAction="#veryHardPressed" prefHeight="25.0" prefWidth="150.0" text="Очень сложный" />
+        </VBox>
+        <VBox visible="false" fx:id="exercisePane" GridPane.columnIndex="4" GridPane.rowIndex="2" GridPane.rowSpan="4">
+            <Button mnemonicParsing="false" onAction="#backToLevels" prefHeight="25.0" prefWidth="150.0" text="Назад" />
+            <ListView fx:id="exerciseListView">
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                </padding>
+            </ListView>
+        </VBox>
+
       <Label prefHeight="17.0" prefWidth="191.0" text="Выберите уровень сложности:" GridPane.columnIndex="4" GridPane.halignment="CENTER">
          <GridPane.margin>
             <Insets />
@@ -51,7 +64,7 @@
          </GridPane.margin></Label>
       <Label fx:id="name" prefHeight="17.0" prefWidth="48.0" text="Сара" GridPane.columnIndex="2" GridPane.rowIndex="1" />
       <Label text="Начальный" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-      <Label text="01.01.2017" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <Label fx:id="lastTrainingDate" text="01.01.2017" GridPane.columnIndex="2" GridPane.rowIndex="3" />
       <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="88.0" text="Статистика" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="5">
          <GridPane.margin>
             <Insets />

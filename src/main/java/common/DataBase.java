@@ -1,12 +1,12 @@
 package common;
 
-import javafx.beans.InvalidationListener;
+import client.DifficultyLevel;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
 import java.util.*;
+import java.util.Date;
 
 public class DataBase {
     private static final String url = "jdbc:mysql://sql11.freemysqlhosting.net:3306/sql11194797";
@@ -224,7 +224,18 @@ public class DataBase {
         }
     }
 
-    public ObservableList<String> getExercise(int level){
+    public ObservableList<String> getExercises(DifficultyLevel difficultyLevel) {
+        switch (difficultyLevel) {
+            case Elementary : return getExercises(1);
+            case Easy: return getExercises(2);
+            case Medium: return getExercises(3);
+            case Hard: return getExercises(4);
+            case Master: return getExercises(5);
+            default: throw new IllegalArgumentException("Неверный уровень сложности");
+        }
+    }
+
+    public ObservableList<String> getExercises(int level){
         ObservableList<String> exercise = FXCollections.observableArrayList();
         String query = "select Text_execirse from Execirse WHERE Number_difficulty_level = '" + level + "'";
         try {
@@ -266,6 +277,30 @@ public class DataBase {
         return exercise;
     }
 
+    public List<UserInfo> getUserInformation(String login) {
+        List<UserInfo> userInfoList = new ArrayList<>();
+        String query = "select train_date, number_difficulty_level from Statistics, Execirse " +
+                "WHERE Execirse.id_execirse = Statistics.id_execirse AND '" + login + "' = Statistics.login";
+        try {
+            con = DriverManager.getConnection(url, p);
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                DifficultyLevel difficultyLevel = DifficultyLevel.valueOf(rs.getString("number_difficulty_level"));
+                Date trainingDate = rs.getDate("train_date");
+                UserInfo userInfo = new UserInfo(trainingDate, difficultyLevel);
+                userInfoList.add(userInfo);
+            }
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        } finally {
+            //close connection ,stmt and resultset here
+            try { con.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { stmt.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { rs.close(); } catch(SQLException se) { /*can't do anything */ }
+        }
+        return userInfoList;
+    }
 
 
     public static void main(String args[]) throws SQLException {

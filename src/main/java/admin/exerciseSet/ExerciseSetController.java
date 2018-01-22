@@ -3,8 +3,6 @@ package admin.exerciseSet;
 import admin.Menu;
 import admin.addExercise.AddExercise;
 import common.DataBase;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -30,7 +28,7 @@ public class ExerciseSetController {
     public void setExercises(){
         dataBase = new DataBase();
         int levelNum = level.getItems().indexOf(level.getValue()) + 1;
-        exercises.setItems(dataBase.getExercise(levelNum));
+        exercises.setItems(dataBase.getExercises(levelNum));
     }
 
     void init(Stage stage) {
@@ -66,7 +64,7 @@ public class ExerciseSetController {
        }
        dataBase = new DataBase();
        dataBase.deleteExercise(levelNum, text);
-       exercises.setItems(dataBase.getExercise(levelNum));
+       exercises.setItems(dataBase.getExercises(levelNum));
     }
 
     public void edit(ActionEvent actionEvent) throws Exception {
