@@ -1,8 +1,7 @@
 package common;
 
-import javafx.beans.InvalidationListener;
+import admin.userAccounts.Statistic;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
@@ -293,6 +292,62 @@ public class DataBase {
             try { rs.close(); } catch(SQLException se) { /*can't do anything */ }
         }
         return exercise;
+    }
+
+    public ObservableList<Statistic> getStatistics(){
+        ObservableList<Statistic> statistics = FXCollections.observableArrayList();
+        String query = "SELECT s.Login, s.Train_Date, d.Name_level, s.Err_count, s.Time, s.Score  FROM Statistics s, Execirse e, Difficulty_level d where s.ID_execirse=e.ID_execirse and e.Number_difficulty_level=d.Number_difficulty_level;";
+        try {
+            con = DriverManager.getConnection(url, p);
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Statistic st = new Statistic();
+                st.setLogin(rs.getString("Login"));
+                st.setDate(rs.getString("Train_Date"));
+                st.setLevel(rs.getString("Name_level"));
+                st.setMistakes(rs.getInt("Err_count"));
+                st.setTime(rs.getInt("Time"));
+                st.setScore(rs.getInt("Score"));
+                statistics.add(st);
+            }
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        } finally {
+            //close connection ,stmt and resultset here
+            try { con.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { stmt.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { rs.close(); } catch(SQLException se) { /*can't do anything */ }
+        }
+        return statistics;
+    }
+
+    public ObservableList<Statistic> getUserStatistics(String login){
+        ObservableList<Statistic> statistics = FXCollections.observableArrayList();
+        String query = "SELECT s.Login, s.Train_Date, d.Name_level, s.Err_count, s.Time, s.Score  FROM Statistics s, Execirse e, Difficulty_level d where s.ID_execirse=e.ID_execirse and e.Number_difficulty_level=d.Number_difficulty_level and s.Login='" + login + "';";
+        try {
+            con = DriverManager.getConnection(url, p);
+            stmt = con.createStatement();
+            rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                Statistic st = new Statistic();
+                st.setLogin(rs.getString("Login"));
+                st.setDate(rs.getString("Train_Date"));
+                st.setLevel(rs.getString("Name_level"));
+                st.setMistakes(rs.getInt("Err_count"));
+                st.setTime(rs.getInt("Time"));
+                st.setScore(rs.getInt("Score"));
+                statistics.add(st);
+            }
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        } finally {
+            //close connection ,stmt and resultset here
+            try { con.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { stmt.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { rs.close(); } catch(SQLException se) { /*can't do anything */ }
+        }
+        return statistics;
     }
 
 
