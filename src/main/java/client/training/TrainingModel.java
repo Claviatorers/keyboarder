@@ -26,16 +26,14 @@ abstract class TrainingModel {
         throw new IllegalArgumentException("Неизвестый режим");
     }
 
-    public boolean inputSymbol(char symbol) {
-        if (isDone() || isFailed()) return false;
+    public void inputSymbol(char symbol) {
+        if (isDone() || isFailed()) return;
 
         if (exercise.getText().charAt(currentPosition) == symbol) {
             rightSymbolPressed();
-            return true;
         }
         else{
             wrongSymbolPressed();
-            return false;
         }
     }
 
@@ -82,5 +80,9 @@ abstract class TrainingModel {
 
     public int getID() {
         return exercise.getId();
+    }
+
+    public char getCurrentCharacter(){
+        return exercise.getText().charAt(currentPosition);
     }
 }
