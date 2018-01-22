@@ -30,6 +30,11 @@ public class TrainingModelTime extends TrainingModel {
         return currentMistakes == getMaxMistakes() || getLeftTime() <= 0;
     }
 
+    @Override
+    protected void resetSpecial() {
+        currentMistakes = 0;
+    }
+
     int getMaxMistakes() {
         return exercise.getMaxMistakes();
     }

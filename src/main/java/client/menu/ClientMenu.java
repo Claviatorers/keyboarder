@@ -1,6 +1,7 @@
 package client.menu;
 
 import admin.MenuController;
+import client.DifficultyLevel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,11 +12,17 @@ import java.io.IOException;
 
 public class ClientMenu {
     private Stage stage;
+    private ClientMenuController clientMenuController;
+
+    public ClientMenu(String login, DifficultyLevel difficultyLevel) throws Exception {
+        this(login);
+        clientMenuController.setDifficultyLevel(difficultyLevel);
+    }
 
     public ClientMenu(String login) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/clientMenu.fxml"));
         Parent root = loader.load();
-        ClientMenuController clientMenuController = loader.getController();
+        clientMenuController = loader.getController();
         clientMenuController.setLogin(login);
         stage = new Stage();
         stage.setTitle("Обучение");

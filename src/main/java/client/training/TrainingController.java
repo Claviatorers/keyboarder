@@ -1,5 +1,7 @@
 package client.training;
 
+import client.menu.ClientMenu;
+import common.DataBase;
 import form.FXMLController;
 import form.Form;
 import javafx.animation.Animation;
@@ -9,10 +11,7 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -20,6 +19,8 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Optional;
 
 public class TrainingController extends FXMLController {
@@ -32,12 +33,14 @@ public class TrainingController extends FXMLController {
 
     private final Timeline timer = new Timeline();
     private static final int SEC_IN_MIN = 60;
+    private static final DataBase dataBase = new DataBase();
     private TrainingModel trainingModel;
 
     @FXML private Label countNameLabel;
     @FXML private TextFlow exerciseText;
     @FXML private Label countLabel;
     @FXML private Label timeLabel;
+    private String login;
 
     private void setTime(int timeInSecs) {
         int minutes = timeInSecs / SEC_IN_MIN;
@@ -95,19 +98,23 @@ public class TrainingController extends FXMLController {
         trainingModel.reset();
         setDefaultColors();
         if (!timer.getKeyFrames().isEmpty()) {
-            timer.getKeyFrames().remove(0);
+            timer.getKeyFrames().removeAll(timer.getKeyFrames());
         }
         timer.getKeyFrames().add(new KeyFrame(Duration.seconds(1), event -> {
             trainingModel.decreaseTime();
             setTime(trainingModel.getLeftTime());
-            if(trainingModel.getLeftTime() <= 0 && trainingModel.isFailed()) {
+            if(trainingModel.getLeftTime() <= 0) {
                 timer.stop();
                 if (trainingModel.isFailed()) {
+                    saveResultTimeMode();
                     showFailedMessage("Время вышло!");
                 } else {
                     TrainingModelScore trainingModelScore = (TrainingModelScore) trainingModel;
+                    saveResultScoreMode();
                     if (trainingModelScore.getScore() >= trainingModelScore.getPassScore()) {
                         showCompletedMessage();
+                    } else {
+                        showFailedMessage("Набрано недостаточно очков!");
                     }
                 }
             }
@@ -122,7 +129,7 @@ public class TrainingController extends FXMLController {
             alert.setTitle("Успех!");
 
             alert.showAndWait();
-            form.close();
+            backToParentForm();
         });
     }
 
@@ -147,9 +154,11 @@ public class TrainingController extends FXMLController {
                     repaintText();
                     if (trainingModel.isFailed()) {
                         timer.stop();
+                        saveResultTimeMode();
                         showFailedMessage("Допущено слишком много ошибок!");
                     } else if (trainingModel.isDone()) {
                         timer.stop();
+                        saveResultTimeMode();
                         showCompletedMessage();
                     }
                 });
@@ -158,21 +167,43 @@ public class TrainingController extends FXMLController {
         scene.setOnKeyTyped(eventHandler);
     }
 
+    private void saveResultScoreMode() {
+        dataBase.saveStatistic(Calendar.getInstance().getTime(), ((TrainingModelScore)trainingModel).getScore(), login, trainingModel.getID());
+    }
+
+    private void saveResultTimeMode() {
+        dataBase.saveStatistic(Calendar.getInstance().getTime(), ((TrainingModelTime)trainingModel).getCurrentMistakes(),
+                trainingModel.getMaxTime() - trainingModel.getLeftTime(), login, trainingModel.getID());
+    }
+
     private void showFailedMessage(String message) {
         Platform.runLater(() -> {
             ButtonType finish = new ButtonType("Закончить", ButtonBar.ButtonData.FINISH);
             ButtonType again = new ButtonType("Еще раз", ButtonBar.ButtonData.OK_DONE);
-            Alert alert = new Alert(Alert.AlertType.ERROR, message, finish, again);
+
+            Alert alert = new Alert(Alert.AlertType.NONE, message, finish, again);
             alert.setTitle("Упражнение не пройдено!");
+            ((Button)alert.getDialogPane().lookupButton( finish )).setDefaultButton(false);
+            ((Button)alert.getDialogPane().lookupButton( again )).setDefaultButton(false);
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.isPresent() && result.get() == finish) {
-                form.close();
+                backToParentForm();
             } else if (result.isPresent() && result.get() == again) {
                 startTraining();
                 repaintText();
             }
         });
+    }
+
+    private void backToParentForm(){
+        form.close();
+        try {
+            ClientMenu clientMenu = new ClientMenu(login, trainingModel.getDifficultyLevel());
+            clientMenu.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void repaintText() {
@@ -195,5 +226,9 @@ public class TrainingController extends FXMLController {
 
     void setForm(Form form) {
         this.form = form;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 }

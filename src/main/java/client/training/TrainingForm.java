@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class TrainingForm extends Form {
 
-    public TrainingForm(Exercise exercise, Mode mode) throws IOException {
+    public TrainingForm(Exercise exercise, Mode mode, String login) throws IOException {
         super(PathConstants.TRAINING_PATH, "Тренировка");
 
         TrainingController trainingController = (TrainingController) controller;
@@ -17,5 +17,6 @@ public class TrainingForm extends Form {
         trainingController.setTrainingModel(trainingModel);
         trainingController.setSceneHandlers(stage.getScene());
         trainingController.setForm(this);
+        trainingController.setLogin(login);
     }
 }

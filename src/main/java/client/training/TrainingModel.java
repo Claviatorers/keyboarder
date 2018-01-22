@@ -1,5 +1,6 @@
 package client.training;
 
+import client.DifficultyLevel;
 import client.Exercise;
 import client.Mode;
 
@@ -56,7 +57,11 @@ abstract class TrainingModel {
 
     void reset() {
         leftTime = getMaxTime();
+        currentPosition = 0;
+        resetSpecial();
     }
+
+    protected abstract void resetSpecial();
 
     int getLeftTime() {
         return leftTime;
@@ -69,5 +74,13 @@ abstract class TrainingModel {
 
     int getCurrentPosition(){
         return currentPosition;
+    }
+
+    public DifficultyLevel getDifficultyLevel() {
+        return exercise.getDifficultyLevel();
+    }
+
+    public int getID() {
+        return exercise.getId();
     }
 }
