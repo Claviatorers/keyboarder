@@ -15,6 +15,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -22,6 +24,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class ClientMenuController {
+    public ToggleGroup modeGroup;
     @FXML private VBox exercisePane;
     @FXML private Label lastTrainingDate;
     @FXML private VBox buttonsBox;
@@ -38,7 +41,15 @@ public class ClientMenuController {
         dataBase = new DataBase();
         exerciseListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             try {
-                TrainingForm trainingForm = new TrainingForm((Exercise) newValue, Mode.Time);
+                stage.close();
+                ToggleButton selected = (ToggleButton) modeGroup.getSelectedToggle();
+                Mode mode;
+                if (selected.getText().equals("На время")){
+                    mode = Mode.Time;
+                } else {
+                    mode = Mode.Score;
+                }
+                TrainingForm trainingForm = new TrainingForm((Exercise) newValue, mode, login);
                 trainingForm.show();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -65,7 +76,7 @@ public class ClientMenuController {
     void setLogin(String login){
         this.login = login;
         setName();
-        List<UserInfo> userInfoList = dataBase.getUserInformation(login);
+//        List<UserInfo> userInfoList = dataBase.getUserInformation(login);
 //        final Date[] lastDate = {new Date(0)};
 //        userInfoList.forEach(userInfo -> {
 //            if (userInfo.getTrainingDate().after(lastDate[0])) {
@@ -109,10 +120,10 @@ public class ClientMenuController {
     private void setListView(DifficultyLevel difficultyLevel){
         String level = difficultyLevel.toRussian();
         String[] levelParameters = dataBase.getLevelSets(level);
-        ObservableList<String> exerciseTexts = dataBase.getExercises(difficultyLevel);
+        List<String[]> exerciseTextsWithId = dataBase.getExercises(difficultyLevel);
         ObservableList<Exercise> exercises = FXCollections.observableArrayList();
-        for (String exerciseText : exerciseTexts) {
-            exercises.add(new Exercise(exerciseText, difficultyLevel, Double.parseDouble(levelParameters[0]), Integer.parseInt(levelParameters[2])));
+        for (String[] exerciseText : exerciseTextsWithId) {
+            exercises.add(new Exercise(Integer.parseInt(exerciseText[0]), exerciseText[1], difficultyLevel, Double.parseDouble(levelParameters[0]), Integer.parseInt(levelParameters[2])));
         }
         //noinspection unchecked
         exerciseListView.setItems(exercises);
@@ -123,5 +134,9 @@ public class ClientMenuController {
     public void backToLevels(ActionEvent actionEvent) {
         exercisePane.setVisible(false);
         buttonsBox.setVisible(true);
+    }
+
+    public void setDifficultyLevel(DifficultyLevel difficultyLevel) {
+        setListView(difficultyLevel);
     }
 }

@@ -4,12 +4,14 @@ package client;
  * Created by User on 16.09.2017
  */
 public class Exercise {
+    private final int id;
     private String text;
     private DifficultyLevel difficultyLevel;
     private double keyPressTime;
     private int maxMistakes;
 
-    public Exercise(String text, DifficultyLevel difficultyLevel, double keyPressTime, int maxMistakes) {
+    public Exercise(int id, String text, DifficultyLevel difficultyLevel, double keyPressTime, int maxMistakes) {
+        this.id = id;
         this.text = text;
         this.difficultyLevel = difficultyLevel;
         this.keyPressTime = keyPressTime;
@@ -35,5 +37,9 @@ public class Exercise {
     @Override
     public String toString() {
         return text;
+    }
+
+    public int getId() {
+        return id;
     }
 }

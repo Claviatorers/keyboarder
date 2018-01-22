@@ -46,4 +46,9 @@ public class TrainingModelScore extends TrainingModel {
     public int getScore() {
         return score;
     }
+
+    @Override
+    protected void resetSpecial() {
+        score = 0;
+    }
 }
