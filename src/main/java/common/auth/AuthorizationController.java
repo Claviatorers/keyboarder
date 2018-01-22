@@ -75,11 +75,13 @@ public class AuthorizationController {
 
     public void help(ActionEvent actionEvent) throws IOException {
         stage.hide();
-       About about = new About();
+       About about = new About(true, "auth");
        about.show();
     }
 
-    public void info(ActionEvent actionEvent) {
-
+    public void info(ActionEvent actionEvent) throws IOException {
+        stage.hide();
+        About about = new About(false, "auth");
+        about.show();
     }
 }

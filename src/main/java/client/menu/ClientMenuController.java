@@ -7,6 +7,7 @@ import client.training.TrainingForm;
 import client.editAccount.EditAccount;
 import common.DataBase;
 import common.UserInfo;
+import common.about.About;
 import common.auth.Authorization;
 import common.changePassword.ChangePassword;
 import javafx.collections.FXCollections;
@@ -66,11 +67,6 @@ public class ClientMenuController {
         Authorization authorization = new Authorization();
         authorization.show();
 
-    }
-    public void changePassword(ActionEvent actionEvent) throws Exception {
-        stage.close();
-        ChangePassword changePassword = new ChangePassword(login);
-        changePassword.show();
     }
 
     void setLogin(String login){
@@ -138,5 +134,17 @@ public class ClientMenuController {
 
     public void setDifficultyLevel(DifficultyLevel difficultyLevel) {
         setListView(difficultyLevel);
+    }
+
+    public void help(ActionEvent actionEvent) throws IOException {
+        stage.hide();
+        About about = new About(true, login);
+        about.show();
+    }
+
+    public void info(ActionEvent actionEvent) throws IOException {
+        stage.hide();
+        About about = new About(false, login);
+        about.show();
     }
 }

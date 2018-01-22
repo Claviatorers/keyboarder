@@ -6,6 +6,7 @@ import common.DataBase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
@@ -17,12 +18,23 @@ public class ExerciseSetController {
     ComboBox<String> level;
     @FXML
     ListView<String> exercises;
-
     @FXML
-    public void initialize(){
+    Button editBut;
+    @FXML
+    Button deleteBut;
+
+    public void setLevel(String curLevel){
         level.getItems().addAll("Начальный", "Легкий", "Средний", "Сложный", "Очень сложный");
-        level.setValue("Начальный");
+        level.setValue(curLevel);
         setExercises();
+        if(exercises.getItems().size() == 0){
+            editBut.setDisable(true);
+            deleteBut.setDisable(true);
+        }
+        else{
+            editBut.setDisable(false);
+            deleteBut.setDisable(false);
+        }
     }
 
     public void setExercises(){
@@ -43,6 +55,14 @@ public class ExerciseSetController {
 
     public void changeLevel(ActionEvent actionEvent) {
         setExercises();
+        if(exercises.getItems().size() == 0){
+            editBut.setDisable(true);
+            deleteBut.setDisable(true);
+        }
+        else{
+            editBut.setDisable(false);
+            deleteBut.setDisable(false);
+        }
     }
 
     public void add(ActionEvent actionEvent) throws Exception {
@@ -65,6 +85,14 @@ public class ExerciseSetController {
        dataBase = new DataBase();
        dataBase.deleteExercise(levelNum, text);
        exercises.setItems(dataBase.getExercises(levelNum));
+        if(exercises.getItems().size() == 0){
+            editBut.setDisable(true);
+            deleteBut.setDisable(true);
+        }
+        else{
+            editBut.setDisable(false);
+            deleteBut.setDisable(false);
+        }
     }
 
     public void edit(ActionEvent actionEvent) throws Exception {
