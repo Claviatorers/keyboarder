@@ -162,7 +162,7 @@ public class TrainingController extends FXMLController {
         Platform.runLater(() -> {
             ButtonType finish = new ButtonType("Закончить", ButtonBar.ButtonData.FINISH);
             ButtonType again = new ButtonType("Еще раз", ButtonBar.ButtonData.OK_DONE);
-            Alert alert = new Alert(Alert.AlertType.ERROR, message, finish, again);
+            Alert alert = new Alert(Alert.AlertType.NONE, message, finish, again);
             alert.setTitle("Упражнение не пройдено!");
 
             Optional<ButtonType> result = alert.showAndWait();

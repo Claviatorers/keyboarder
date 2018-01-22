@@ -56,6 +56,7 @@ abstract class TrainingModel {
 
     void reset() {
         leftTime = getMaxTime();
+        currentPosition = 0;
     }
 
     int getLeftTime() {
