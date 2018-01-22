@@ -1,5 +1,7 @@
 package common.about;
 
+import admin.Menu;
+import client.menu.ClientMenu;
 import common.auth.Authorization;
 import javafx.fxml.FXML;
 import javafx.scene.web.WebView;
@@ -13,23 +15,40 @@ public class AboutController {
 
     private Stage stage;
 
+    boolean help;
+    String parent;
+
     void init(Stage stage) {
         this.stage = stage;
-    }
-
-    void backToAuthorization() throws IOException {
-        stage.hide();
-        Authorization authorization = new Authorization();
-        authorization.show();
-
-    }
-
-
-    public void init() {
         try {
-           // webViewProject.getEngine().load(getClass().getResource("/AboutSystem.html").toString());
+            if(help) {
+                webViewProject.getEngine().load(getClass().getResource("/AboutSystem.html").toString());
+            } else {
+                webViewProject.getEngine().load(getClass().getResource("/AboutDevelopers.html").toString());
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    void setInfo(boolean help, String parent){
+        this.help = help;
+        this.parent = parent;
+    }
+
+    void back() throws Exception {
+        stage.hide();
+        if(parent == "auth") {
+            Authorization authorization = new Authorization();
+            authorization.show();
+        } else if (parent == "admin") {
+            Menu menu = new Menu();
+            menu.show();
+        } else {
+            ClientMenu clientMenu = new ClientMenu(parent);
+            clientMenu.show();
+        }
+
+    }
+
 }

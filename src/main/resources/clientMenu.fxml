@@ -64,14 +64,13 @@
             <menus>
                 <Menu mnemonicParsing="false" text="Помощь">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Справка" />
+                        <MenuItem onAction="#help" mnemonicParsing="false" text="Справка" />
                     </items>
                     <items>
-                        <MenuItem mnemonicParsing="false" text="О разработчиках" />
+                        <MenuItem onAction="#info" mnemonicParsing="false" text="О разработчиках" />
                     </items>
                 </Menu>
             </menus>
         </MenuBar>
-
     </children>
 </GridPane>

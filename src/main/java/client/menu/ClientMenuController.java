@@ -2,6 +2,7 @@ package client.menu;
 
 import client.editAccount.EditAccount;
 import common.DataBase;
+import common.about.About;
 import common.auth.Authorization;
 import common.changePassword.ChangePassword;
 import javafx.event.ActionEvent;
@@ -48,5 +49,17 @@ public class ClientMenuController {
         stage.hide();
         EditAccount editAccount = new EditAccount(login, name.getText());
         editAccount.show();
+    }
+
+    public void help(ActionEvent actionEvent) throws IOException {
+        stage.hide();
+        About about = new About(true, login);
+        about.show();
+    }
+
+    public void info(ActionEvent actionEvent) throws IOException {
+        stage.hide();
+        About about = new About(false, login);
+        about.show();
     }
 }

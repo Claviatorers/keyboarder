@@ -3,6 +3,7 @@ package admin;
 import admin.exerciseSet.ExerciseSet;
 import admin.levelSet.LevelSet;
 import admin.userAccounts.UserAccounts;
+import common.about.About;
 import common.auth.Authorization;
 import common.changePassword.ChangePassword;
 import common.registration.Registration;
@@ -47,5 +48,17 @@ public class MenuController{
         stage.close();
         UserAccounts userAccounts = new UserAccounts();
         userAccounts.show();
+    }
+
+    public void help(ActionEvent actionEvent) throws IOException {
+        stage.hide();
+        About about = new About(true, "admin");
+        about.show();
+    }
+
+    public void info(ActionEvent actionEvent) throws IOException {
+        stage.hide();
+        About about = new About(false, "admin");
+        about.show();
     }
 }
