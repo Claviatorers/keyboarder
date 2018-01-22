@@ -17,11 +17,14 @@ import java.util.Random;
 public class AddExerciseController {
     private Stage stage;
     private int levelNum;
+    private String exerciseText;
     private int length;
     private String chars;
+    DataBase dataBase;
+    private boolean newEx = true;
     @FXML
     private TextArea text;
-    DataBase dataBase;
+
 
     @FXML
     public void initialize(){
@@ -45,6 +48,12 @@ public class AddExerciseController {
         });
     }
 
+    void setExerciseText(String curText){
+        exerciseText = curText;
+        text.setText(exerciseText);
+        newEx = false;
+    }
+
     void close() throws Exception {
         stage.hide();
         ExerciseSet exerciseSet = new ExerciseSet();
@@ -60,7 +69,11 @@ public class AddExerciseController {
             return;
         }
         dataBase = new DataBase();
-        dataBase.addExercise(levelNum, text.getText());
+        if(newEx) {
+            dataBase.addExercise(levelNum, text.getText());
+        }else {
+            dataBase.editExercise(levelNum, exerciseText, text.getText());
+        }
         this.close();
 
     }
@@ -73,5 +86,9 @@ public class AddExerciseController {
             generatedText += chars.charAt(index);
         }
         text.setText(generatedText);
+    }
+
+    public void cancel(ActionEvent actionEvent) throws Exception {
+        this.close();
     }
 }

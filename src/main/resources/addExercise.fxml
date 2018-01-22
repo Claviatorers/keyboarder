@@ -35,7 +35,7 @@
                <HBox.margin>
                   <Insets left="40.0" right="20.0" top="20.0" />
                </HBox.margin></Button>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Отмена">
+            <Button onAction="#cancel" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Отмена">
                <HBox.margin>
                   <Insets left="20.0" right="10.0" top="20.0" />
                </HBox.margin></Button>

@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -16,9 +17,9 @@
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="238.0" minWidth="10.0" prefWidth="195.0" />
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="134.0" minHeight="10.0" prefHeight="134.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="71.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="134.0" minHeight="10.0" prefHeight="124.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="71.0" minHeight="10.0" prefHeight="58.0" vgrow="SOMETIMES" />
+        <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
         <RowConstraints maxHeight="124.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <Label prefHeight="20.0" prefWidth="45.0" text="Логин" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM">
@@ -49,4 +50,5 @@
     </PasswordField>
     <Button mnemonicParsing="false" onAction="#enter" prefHeight="25.0" prefWidth="121.0" text="Вход" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
     <Button mnemonicParsing="false" onAction="#toRegistration" prefHeight="25.0" prefWidth="125.0" text="Регистрация" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP" />
+   <ImageView fitHeight="65.0" fitWidth="303.0" pickOnBounds="true" preserveRatio="true" />
 </GridPane>
