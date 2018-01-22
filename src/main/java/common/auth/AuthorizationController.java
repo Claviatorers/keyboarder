@@ -3,13 +3,20 @@ package common.auth;
 import admin.Menu;
 import client.menu.ClientMenu;
 import common.DataBase;
+import common.about.About;
 import common.registration.Registration;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class AuthorizationController {
     DataBase dataBase;
@@ -51,7 +58,6 @@ public class AuthorizationController {
             alert.setHeaderText("Неверный пароль или логин!");
             alert.showAndWait();
         }
-
     }
 
     void init(Stage stage) {
@@ -65,8 +71,15 @@ public class AuthorizationController {
                 login.textProperty().setValue(oldValue);
             }
         });
-
-
     }
 
+    public void help(ActionEvent actionEvent) throws IOException {
+        stage.hide();
+       About about = new About();
+       about.show();
+    }
+
+    public void info(ActionEvent actionEvent) {
+
+    }
 }

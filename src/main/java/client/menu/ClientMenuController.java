@@ -4,6 +4,7 @@ import client.DifficultyLevel;
 import client.Exercise;
 import client.Mode;
 import client.training.TrainingForm;
+import client.editAccount.EditAccount;
 import common.DataBase;
 import common.UserInfo;
 import common.auth.Authorization;
@@ -77,6 +78,12 @@ public class ClientMenuController {
 
     private void setName(){
         name.setText(dataBase.getName(login));
+    }
+
+    public void editAccount(ActionEvent actionEvent) throws Exception {
+        stage.hide();
+        EditAccount editAccount = new EditAccount(login, name.getText());
+        editAccount.show();
     }
 
     public void beginnerPressed(ActionEvent actionEvent) {

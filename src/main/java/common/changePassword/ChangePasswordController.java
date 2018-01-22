@@ -1,6 +1,7 @@
 package common.changePassword;
 
 import admin.Menu;
+import client.menu.ClientMenu;
 import common.DataBase;
 import common.auth.Authorization;
 import javafx.event.ActionEvent;
@@ -40,15 +41,20 @@ public class ChangePasswordController {
 
     void close() throws Exception {
         stage.hide();
-        Menu menu = new Menu();
-        menu.show();
+        if(login !="admin"){
+            ClientMenu clientMenu = new ClientMenu(login);
+            clientMenu.show();
+        } else {
+            Menu menu = new Menu();
+            menu.show();
+        }
     }
 
     void setLogin(String login){
         this.login = login;
     }
 
-    public void change(ActionEvent actionEvent) {
+    public void change(ActionEvent actionEvent) throws Exception {
         String curPasswordText = curPassword.getText();
         String newPasswordText = newPassword.getText();
         String confirmPasswordText = confirmPassword.getText();
@@ -84,6 +90,13 @@ public class ChangePasswordController {
             alert.setHeaderText("Пароль успешно изменен");
             alert.showAndWait();
             stage.hide();
+            if(login !="admin"){
+                ClientMenu clientMenu = new ClientMenu(login);
+                clientMenu.show();
+            } else {
+                Menu menu = new Menu();
+                menu.show();
+            }
         }
     }
 }

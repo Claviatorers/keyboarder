@@ -86,6 +86,38 @@ public class DataBase {
         }
     }
 
+    public void deleteUser(String login){
+        String query = "DELETE FROM Statistics WHERE Login = '" + login + "';";
+        String query2 = "DELETE FROM User WHERE Login = '" + login + "';";
+        try {
+            con = DriverManager.getConnection(url, p);
+            stmt = con.createStatement();
+            stmt.executeUpdate(query);
+            stmt.executeUpdate(query2);
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        } finally {
+            //close connection ,stmt and resultset here
+            try { con.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { stmt.close(); } catch(SQLException se) { /*can't do anything */ }
+        }
+    }
+
+    public void editUserName(String login, String name){
+        String query = "UPDATE User SET name ='" + name + "' WHERE Login = '" + login + "';";
+        try {
+            con = DriverManager.getConnection(url, p);
+            stmt = con.createStatement();
+            stmt.executeUpdate(query);
+        } catch (SQLException sqlEx) {
+            sqlEx.printStackTrace();
+        } finally {
+            //close connection ,stmt and resultset here
+            try { con.close(); } catch(SQLException se) { /*can't do anything */ }
+            try { stmt.close(); } catch(SQLException se) { /*can't do anything */ }
+        }
+    }
+
     public boolean isExistLogin(String log){
         int count = 0;
         String query = "select * from User WHERE Login = '" + log + "'";
@@ -148,8 +180,6 @@ public class DataBase {
         return result;
     }
 
-
-
     public String[] getLevelSets(String level){
         String[] sets = new String[3];
         String query = "select Time_of_character_pressing, Max_length_execirse, Percentage_of_errors from Difficulty_level WHERE Name_level = '" + level + "'";
@@ -192,7 +222,6 @@ public class DataBase {
         }
         return sets;
     }
-
 
     public void setLevelSets(String level, Double time, Integer length, Integer mistakes ){
         String query = "UPDATE Difficulty_level SET Time_of_character_pressing = " + time + ", Max_length_execirse = " + length + ", Percentage_of_errors = " + mistakes + " WHERE Name_level = '" + level + "';";

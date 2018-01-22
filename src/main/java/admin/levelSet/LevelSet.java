@@ -20,6 +20,7 @@ public class LevelSet {
         stage.setScene(scene);
         Image ico = new Image("images/iconLogo.png");
         stage.getIcons().add(ico);
+        stage.setResizable(false);
         stage.setOnHidden(event -> {
             try {
                 levelSetController.close();

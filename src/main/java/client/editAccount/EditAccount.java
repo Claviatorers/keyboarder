@@ -1,24 +1,22 @@
-package client.menu;
+package client.editAccount;
 
-import admin.MenuController;
+import admin.addExercise.AddExerciseController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
-public class ClientMenu {
+public class EditAccount {
     private Stage stage;
 
-    public ClientMenu(String login) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/clientMenu.fxml"));
+    public EditAccount(String login, String name) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/editAccount.fxml"));
         Parent root = loader.load();
-        ClientMenuController clientMenuController = loader.getController();
-        clientMenuController.setLogin(login);
+        EditAccountController editAccountController = loader.getController();
+        editAccountController.setInfo(login,name);
         stage = new Stage();
-        stage.setTitle("Обучение");
+        stage.setTitle("Настройка упражнения");
         Scene scene = new Scene(root);
         stage.setScene(scene);
         Image ico = new Image("images/iconLogo.png");
@@ -26,12 +24,12 @@ public class ClientMenu {
         stage.setResizable(false);
         stage.setOnCloseRequest(event -> {
             try {
-                clientMenuController.backToAuthorization();
-            } catch (IOException e) {
+                editAccountController.close();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         });
-        clientMenuController.init(stage);
+        editAccountController.init(stage);
     }
 
     public void show() {

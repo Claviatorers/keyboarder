@@ -22,7 +22,8 @@ public class ChangePassword {
         stage.setScene(scene);
         Image ico = new Image("images/iconLogo.png");
         stage.getIcons().add(ico);
-        stage.setOnHidden(event -> {
+        stage.setResizable(false);
+        stage.setOnCloseRequest(event -> {
             try {
                 changePasswordController.close();
             } catch (Exception e) {
