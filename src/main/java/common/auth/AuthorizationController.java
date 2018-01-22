@@ -51,7 +51,6 @@ public class AuthorizationController {
             alert.setHeaderText("Неверный пароль или логин!");
             alert.showAndWait();
         }
-
     }
 
     void init(Stage stage) {

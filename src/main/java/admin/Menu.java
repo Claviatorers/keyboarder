@@ -22,6 +22,7 @@ public class Menu {
         stage.setScene(scene);
         Image ico = new Image("images/iconLogo.png");
         stage.getIcons().add(ico);
+        stage.setResizable(false);
         stage.setOnCloseRequest(event -> {
             try {
                 menuController.backToAuthorization();

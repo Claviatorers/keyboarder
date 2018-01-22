@@ -1,5 +1,6 @@
 package client.menu;
 
+import client.editAccount.EditAccount;
 import common.DataBase;
 import common.auth.Authorization;
 import common.changePassword.ChangePassword;
@@ -41,5 +42,11 @@ public class ClientMenuController {
     private void setName(){
         dataBase = new DataBase();
         name.setText(dataBase.getName(login));
+    }
+
+    public void editAccount(ActionEvent actionEvent) throws Exception {
+        stage.hide();
+        EditAccount editAccount = new EditAccount(login, name.getText());
+        editAccount.show();
     }
 }

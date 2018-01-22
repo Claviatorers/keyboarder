@@ -20,6 +20,7 @@ public class Authorization{
         stage.setScene(scene);
         Image ico = new Image("images/iconLogo.png");
         stage.getIcons().add(ico);
+        stage.setResizable(false);
         AuthorizationController authorizationController = loader.getController();
         authorizationController.init(stage);
     }
