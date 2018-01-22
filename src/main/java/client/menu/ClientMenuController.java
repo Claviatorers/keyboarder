@@ -29,11 +29,6 @@ public class ClientMenuController {
         authorization.show();
 
     }
-    public void changePassword(ActionEvent actionEvent) throws Exception {
-        stage.close();
-        ChangePassword changePassword = new ChangePassword(login);
-        changePassword.show();
-    }
 
     void setLogin(String login){
         this.login = login;

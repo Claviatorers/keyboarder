@@ -56,7 +56,8 @@ public class AddExerciseController {
 
     void close() throws Exception {
         stage.hide();
-        ExerciseSet exerciseSet = new ExerciseSet();
+        String[] levels = {"Начальный", "Легкий", "Средний", "Сложный", "Очень сложный"};
+        ExerciseSet exerciseSet = new ExerciseSet(levels[levelNum-1]);
         exerciseSet.show();
     }
 
@@ -81,7 +82,9 @@ public class AddExerciseController {
     public void generate(ActionEvent actionEvent) {
         String generatedText = "";
         Random rnd = new Random(System.currentTimeMillis());
-        while(generatedText.length() < length){
+        Random rndLegth = new Random(System.currentTimeMillis());
+        int curLength = 15 + rndLegth.nextInt(length - 15);
+        while(generatedText.length() < curLength){
             int index = rnd.nextInt(chars.length());
             generatedText += chars.charAt(index);
         }

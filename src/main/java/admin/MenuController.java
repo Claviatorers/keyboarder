@@ -40,7 +40,7 @@ public class MenuController{
 
     public void exerciseSet(ActionEvent actionEvent) throws Exception {
         stage.close();
-        ExerciseSet exerciseSet = new ExerciseSet();
+        ExerciseSet exerciseSet = new ExerciseSet("Начальный");
         exerciseSet.show();
     }
 

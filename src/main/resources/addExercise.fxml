@@ -15,11 +15,11 @@
             <Insets left="10.0" top="10.0" />
          </VBox.margin>
       </Label>
-      <TextArea fx:id="text" prefHeight="92.0" prefWidth="330.0">
+      <TextArea fx:id="text" prefHeight="92.0" prefWidth="330.0" wrapText="true">
          <VBox.margin>
             <Insets left="10.0" right="10.0" top="5.0" />
          </VBox.margin></TextArea>
-      <Button onAction="#generate" mnemonicParsing="false" prefHeight="30.0" prefWidth="138.0" text="Автогенерация">
+      <Button mnemonicParsing="false" onAction="#generate" prefHeight="30.0" prefWidth="138.0" text="Автогенерация">
          <VBox.margin>
             <Insets left="10.0" top="10.0" />
          </VBox.margin>
@@ -31,11 +31,11 @@
       </ListView>
       <HBox prefHeight="55.0" prefWidth="350.0">
          <children>
-            <Button onAction="#save" alignment="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Сохранить">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#save" prefHeight="25.0" prefWidth="90.0" text="Сохранить">
                <HBox.margin>
                   <Insets left="40.0" right="20.0" top="20.0" />
                </HBox.margin></Button>
-            <Button onAction="#cancel" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Отмена">
+            <Button mnemonicParsing="false" onAction="#cancel" prefHeight="25.0" prefWidth="90.0" text="Отмена">
                <HBox.margin>
                   <Insets left="20.0" right="10.0" top="20.0" />
                </HBox.margin></Button>

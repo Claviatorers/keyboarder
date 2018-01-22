@@ -10,10 +10,11 @@ import javafx.stage.Stage;
 public class ExerciseSet {
     private Stage stage;
 
-    public ExerciseSet() throws Exception {
+    public ExerciseSet(String level) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/exerciseSet.fxml"));
         Parent root = loader.load();
         ExerciseSetController exerciseSetController = loader.getController();
+        exerciseSetController.setLevel(level);
         stage = new Stage();
         stage.setTitle("Настройка упражнений");
         Scene scene = new Scene(root);
