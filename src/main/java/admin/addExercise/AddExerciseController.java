@@ -15,6 +15,9 @@ import java.util.Random;
 
 
 public class AddExerciseController {
+    @FXML
+    public TextArea charsField;
+
     private Stage stage;
     private int levelNum;
     private String exerciseText;
@@ -46,6 +49,7 @@ public class AddExerciseController {
                 text.textProperty().setValue(oldValue);
             }
         });
+        charsField.setText(chars);
     }
 
     void setExerciseText(String curText){
