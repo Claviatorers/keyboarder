@@ -246,4 +246,12 @@ public class TrainingController extends FXMLController {
             virtualKeyboard.setVisible(false);
         }
     }
+
+    void hide(){
+        if (!timer.getKeyFrames().isEmpty()) {
+            timer.getKeyFrames().removeAll(timer.getKeyFrames());
+        }
+        form.close();
+        backToParentForm();
+    }
 }
