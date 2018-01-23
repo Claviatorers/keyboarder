@@ -8,11 +8,13 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
@@ -32,10 +34,14 @@ public class TrainingController extends FXMLController {
     private static final Color CURRENT_COLOR = Color.BLUE;
 
     private final Timeline timer = new Timeline();
+    public ToggleButton keyboardStateButton;
+    private VirtualKeyboard vk;
     private static final int SEC_IN_MIN = 60;
     private static final DataBase dataBase = new DataBase();
+
     private TrainingModel trainingModel;
 
+    @FXML private VBox virtualKeyboard;
     @FXML private Label countNameLabel;
     @FXML private TextFlow exerciseText;
     @FXML private Label countLabel;
@@ -51,7 +57,7 @@ public class TrainingController extends FXMLController {
 
     @Override
     public void initialize() {
-
+        vk = new VirtualKeyboard(virtualKeyboard);
     }
 
     private void setStartParameters(){
@@ -152,7 +158,7 @@ public class TrainingController extends FXMLController {
                     System.out.println(event1.getCharacter());
                     trainingModel.inputSymbol((event1.getCharacter().charAt(0)));
                     repaintText();
-                    if (trainingModel.isFailed()) {
+                    if (trainingModel.isFailed() && trainingModel.getLeftTime() > 0) {
                         timer.stop();
                         saveResultTimeMode();
                         showFailedMessage("Допущено слишком много ошибок!");
@@ -216,6 +222,7 @@ public class TrainingController extends FXMLController {
             Text currentLetter = (Text) exerciseText.getChildren().get(currentPosition);
             currentLetter.setFill(CURRENT_COLOR);
             currentLetter.setUnderline(true);
+            vk.lightLetter(trainingModel.getCurrentCharacter());
         }
         if(currentPosition > 0){
             Text prevLetter  = (Text) exerciseText.getChildren().get(currentPosition - 1);
@@ -230,5 +237,21 @@ public class TrainingController extends FXMLController {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public void keyboardChangeState(ActionEvent actionEvent) {
+        if (keyboardStateButton.isSelected()) {
+            virtualKeyboard.setVisible(true);
+        } else {
+            virtualKeyboard.setVisible(false);
+        }
+    }
+
+    void hide(){
+        if (!timer.getKeyFrames().isEmpty()) {
+            timer.getKeyFrames().removeAll(timer.getKeyFrames());
+        }
+        form.close();
+        backToParentForm();
     }
 }

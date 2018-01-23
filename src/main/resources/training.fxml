@@ -1,30 +1,356 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
 
-<GridPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.training.TrainingController">
-    <TextFlow prefHeight="107.0" prefWidth="600.0" GridPane.rowIndex="1" fx:id="exerciseText"/>
+<GridPane prefHeight="449.0" prefWidth="557.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.training.TrainingController">
     <HBox alignment="CENTER_RIGHT" prefHeight="42.0" prefWidth="600.0">
         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-            <Label text="Ошибки" fx:id="countNameLabel"/>
-            <Label text="0/0" fx:id="countLabel"/>
+            <Label fx:id="countNameLabel" text="Ошибки">
+            <font>
+               <Font name="Arial" size="14.0" />
+            </font></Label>
+            <Label fx:id="countLabel" text="0/0">
+            <font>
+               <Font name="Arial" size="15.0" />
+            </font></Label>
         </VBox>
         <VBox alignment="CENTER" prefHeight="68.0" prefWidth="100.0">
-            <Label text="Время" />
-            <Label text="00:00" fx:id="timeLabel"/>
+            <Label text="Время">
+            <font>
+               <Font name="Arial" size="15.0" />
+            </font></Label>
+            <Label fx:id="timeLabel" text="00:00">
+            <font>
+               <Font name="Arial" size="15.0" />
+            </font></Label>
         </VBox>
     </HBox>
-   <columnConstraints>
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-   </rowConstraints>
+    <TextFlow fx:id="exerciseText" prefHeight="173.0" prefWidth="557.0" style="-fx-border-style: solid;" GridPane.rowIndex="1">
+      <padding>
+         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      </padding>
+      <GridPane.margin>
+         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      </GridPane.margin></TextFlow>
+    <ToggleButton fx:id="keyboardStateButton" focusTraversable="false" mnemonicParsing="false" onAction="#keyboardChangeState" selected="true" text="Клавиатура" GridPane.rowIndex="2">
+      <GridPane.margin>
+         <Insets bottom="5.0" left="5.0" top="5.0" />
+      </GridPane.margin></ToggleButton>
+    <VBox fx:id="virtualKeyboard" prefHeight="198.0" prefWidth="600.0" style="-fx-border-style: solid; -fx-border-radius: 1%;" GridPane.rowIndex="3">
+        <GridPane.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+        </GridPane.margin>
+        <opaqueInsets>
+            <Insets />
+        </opaqueInsets>
+        <HBox prefHeight="40.0" prefWidth="600.0">
+            <Label alignment="CENTER" contentDisplay="TOP" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="ё">
+                <font>
+                    <Font name="Arial" size="20.0" />
+                </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="TOP" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="1">
+                <font>
+                    <Font name="Arial" size="20.0" />
+                </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="TOP" layoutX="50.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="2">
+                <font>
+                    <Font name="Arial" size="20.0" />
+                </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="TOP" layoutX="90.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="3">
+                <font>
+                    <Font name="Arial" size="20.0" />
+                </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="TOP" layoutX="130.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="4">
+                <font>
+                    <Font name="Arial" size="20.0" />
+                </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="TOP" layoutX="170.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="5">
+                <font>
+                    <Font name="Arial" size="20.0" />
+                </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="TOP" layoutX="210.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="6">
+                <font>
+                    <Font name="Arial" size="20.0" />
+                </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="TOP" layoutX="250.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="7">
+                <font>
+                    <Font name="Arial" size="20.0" />
+                </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="TOP" layoutX="290.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="8">
+                <font>
+                    <Font name="Arial" size="20.0" />
+                </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="TOP" layoutX="330.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="9">
+                <font>
+                    <Font name="Arial" size="20.0" />
+                </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="TOP" layoutX="370.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="0">
+                <font>
+                    <Font name="Arial" size="20.0" />
+                </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="TOP" layoutX="410.0" layoutY="10.0" prefHeight="39.0" prefWidth="100.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="Backspace">
+                <font>
+                    <Font name="Arial" size="20.0" />
+                </font>
+            </Label>
+        </HBox>
+        <HBox layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="600.0">
+            <children>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="10.0" layoutY="10.0" prefHeight="40.0" prefWidth="60.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="Tab">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="й">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="ц">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="50.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="у">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="90.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="к">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="130.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="е">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="170.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="н">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="210.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="г">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="250.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="ш">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="290.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="щ">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="330.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="з">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="370.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="х">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="410.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="ъ">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+            </children>
+            <VBox.margin>
+                <Insets />
+            </VBox.margin>
+        </HBox>
+        <HBox layoutX="70.0" layoutY="50.0" prefHeight="40.0" prefWidth="600.0">
+            <children>
+                <Label alignment="CENTER" contentDisplay="TOP" prefHeight="40.0" prefWidth="80.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="Caps Lock" textOverrun="CLIP">
+                    <font>
+                        <Font name="Arial" size="15.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="ф">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="50.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="ы">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="90.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="в">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="130.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="а">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="170.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="п">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="210.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="р">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="250.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="о">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="290.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="л">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="330.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="д">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="370.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="ж">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="410.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="э">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+        <HBox layoutX="10.0" layoutY="90.0" prefHeight="40.0" prefWidth="600.0">
+            <children>
+                <Label alignment="CENTER" contentDisplay="TOP" prefHeight="40.0" prefWidth="100.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="Shift" textOverrun="CLIP">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="я">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="50.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="ч">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="90.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="с">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="130.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="м">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="170.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="и">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="210.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="т">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="250.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="ь">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="290.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="б">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="330.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="ю">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="430.0" layoutY="10.0" prefHeight="39.0" prefWidth="80.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="Shift">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+        <HBox layoutX="10.0" layoutY="130.0" prefHeight="41.0" prefWidth="545.0">
+            <children>
+                <Label alignment="CENTER" contentDisplay="TOP" prefHeight="40.0" prefWidth="60.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="Ctrl" textOverrun="CLIP">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="cmd">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="50.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="Alt">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="90.0" layoutY="10.0" prefHeight="40.0" prefWidth="228.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text=" ">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="130.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="Alt">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+                <Label alignment="CENTER" contentDisplay="TOP" layoutX="170.0" layoutY="10.0" prefHeight="40.0" prefWidth="40.0" style="-fx-border-style: solid; -fx-border-radius: 20%;" text="cmd">
+                    <font>
+                        <Font name="Arial" size="20.0" />
+                    </font>
+                </Label>
+            </children>
+        </HBox>
+    </VBox>
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
 </GridPane>

@@ -18,5 +18,12 @@ public class TrainingForm extends Form {
         trainingController.setSceneHandlers(stage.getScene());
         trainingController.setForm(this);
         trainingController.setLogin(login);
+        stage.setOnCloseRequest(event -> {
+            try {
+                trainingController.hide();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
     }
 }
