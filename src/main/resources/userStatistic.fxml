@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="253.0" prefWidth="369.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.userStatistic.UserStatisticController">
+<children>
+      <TableView fx:id="statistics" prefHeight="400.0" prefWidth="369.0">
+          <columns>
+              <TableColumn fx:id="loginColumn" prefWidth="52.0" text="Логин" />
+              <TableColumn fx:id="dateColumn" prefWidth="74.0" text="Дата" />
+              <TableColumn fx:id="levelColumn" prefWidth="92.0" text="Уровень" />
+              <TableColumn fx:id="mistakeColumn" prefWidth="60.0" text="Ошибки" />
+              <TableColumn fx:id="timeColumn" minWidth="0.0" prefWidth="45.0" text="Время" />
+              <TableColumn fx:id="scoreColumn" prefWidth="44.0" text="Очки" />
+          </columns>
+         <HBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </HBox.margin>
+      </TableView>
+   </children>
+</HBox>

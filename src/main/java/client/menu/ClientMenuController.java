@@ -5,6 +5,7 @@ import client.Exercise;
 import client.Mode;
 import client.training.TrainingForm;
 import client.editAccount.EditAccount;
+import client.userStatistic.UserStatistic;
 import common.DataBase;
 import common.UserInfo;
 import common.about.About;
@@ -146,5 +147,11 @@ public class ClientMenuController {
         stage.hide();
         About about = new About(false, login);
         about.show();
+    }
+
+    public void statistic(ActionEvent actionEvent) throws Exception {
+        stage.hide();
+        UserStatistic userStatistic = new UserStatistic(login);
+        userStatistic.show();
     }
 }

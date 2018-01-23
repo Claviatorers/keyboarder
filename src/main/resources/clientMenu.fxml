@@ -88,7 +88,7 @@
       <Label fx:id="name" prefHeight="17.0" prefWidth="48.0" text="Сара" GridPane.columnIndex="2" GridPane.rowIndex="2" />
       <Label text="Начальный" GridPane.columnIndex="2" GridPane.rowIndex="3" />
       <Label fx:id="lastTrainingDate" text="01.01.2017" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-      <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="88.0" text="Статистика" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+      <Button onAction="#statistic" mnemonicParsing="false" prefHeight="35.0" prefWidth="88.0" text="Статистика" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="6">
          <GridPane.margin>
             <Insets />
          </GridPane.margin></Button>
