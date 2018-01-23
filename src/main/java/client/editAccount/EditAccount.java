@@ -16,7 +16,7 @@ public class EditAccount {
         EditAccountController editAccountController = loader.getController();
         editAccountController.setInfo(login,name);
         stage = new Stage();
-        stage.setTitle("Настройка упражнения");
+        stage.setTitle("Учетная запись");
         Scene scene = new Scene(root);
         stage.setScene(scene);
         Image ico = new Image("images/iconLogo.png");
