@@ -15,7 +15,7 @@ public class UserAccounts {
         Parent root = loader.load();
         UserAccountsController userAccountsController = loader.getController();
         stage = new Stage();
-        stage.setTitle("Настройка упражнений");
+        stage.setTitle("Учетные записи");
         Scene scene = new Scene(root);
         stage.setScene(scene);
         Image ico = new Image("images/iconLogo.png");

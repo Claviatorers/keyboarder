@@ -5,6 +5,8 @@ import client.DifficultyLevel;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 import java.sql.*;
 import java.text.DateFormat;
@@ -40,12 +42,20 @@ public class DataBase {
             stmt = con.createStatement();
             stmt.executeUpdate(query);
         } catch (SQLException sqlEx) {
+            showAlertMessage();
             sqlEx.printStackTrace();
         } finally {
             //close connection ,stmt and resultset here
             try { con.close(); } catch(SQLException se) { /*can't do anything */ }
             try { stmt.close(); } catch(SQLException se) { /*can't do anything */ }
         }
+    }
+
+    private void showAlertMessage() {
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Ошибка соединения с БД! Файл БД поврежден или недоступен", ButtonType.OK);
+        alert.setTitle("Ошибка БД!");
+
+        alert.showAndWait();
     }
 
     public void addExercise(int levelNum, String text){
@@ -55,6 +65,7 @@ public class DataBase {
             stmt = con.createStatement();
             stmt.executeUpdate(query);
         } catch (SQLException sqlEx) {
+            showAlertMessage();
             sqlEx.printStackTrace();
         } finally {
             //close connection ,stmt and resultset here
@@ -70,6 +81,7 @@ public class DataBase {
             stmt = con.createStatement();
             stmt.executeUpdate(query);
         } catch (SQLException sqlEx) {
+            showAlertMessage();
             sqlEx.printStackTrace();
         } finally {
             //close connection ,stmt and resultset here
@@ -85,6 +97,7 @@ public class DataBase {
             stmt = con.createStatement();
             stmt.executeUpdate(query);
         } catch (SQLException sqlEx) {
+            showAlertMessage();
             sqlEx.printStackTrace();
         } finally {
             //close connection ,stmt and resultset here
@@ -102,6 +115,7 @@ public class DataBase {
             stmt.executeUpdate(query);
             stmt.executeUpdate(query2);
         } catch (SQLException sqlEx) {
+            showAlertMessage();
             sqlEx.printStackTrace();
         } finally {
             //close connection ,stmt and resultset here
@@ -117,6 +131,7 @@ public class DataBase {
             stmt = con.createStatement();
             stmt.executeUpdate(query);
         } catch (SQLException sqlEx) {
+            showAlertMessage();
             sqlEx.printStackTrace();
         } finally {
             //close connection ,stmt and resultset here
@@ -137,6 +152,7 @@ public class DataBase {
                 count++;
             }
         } catch (SQLException sqlEx) {
+            showAlertMessage();
             sqlEx.printStackTrace();
         } finally {
             //close connection ,stmt and resultset here
@@ -157,6 +173,7 @@ public class DataBase {
             rs.next();
             result = rs.getString("password");
         } catch (SQLException sqlEx) {
+            showAlertMessage();
             sqlEx.printStackTrace();
         } finally {
             //close connection ,stmt and resultset here
@@ -177,6 +194,7 @@ public class DataBase {
             rs.next();
             result = rs.getString("name");
         } catch (SQLException sqlEx) {
+            showAlertMessage();
             sqlEx.printStackTrace();
         } finally {
             //close connection ,stmt and resultset here
@@ -199,6 +217,7 @@ public class DataBase {
             sets[1] = rs.getString("Max_length_execirse");
             sets[2] = rs.getString("Percentage_of_errors");
         } catch (SQLException sqlEx) {
+            showAlertMessage();
             sqlEx.printStackTrace();
         } finally {
             //close connection ,stmt and resultset here
@@ -220,6 +239,7 @@ public class DataBase {
             sets[0] = rs.getString("Allowable_characters");
             sets[1] = rs.getString("Max_length_execirse");
         } catch (SQLException sqlEx) {
+            showAlertMessage();
             sqlEx.printStackTrace();
         } finally {
             //close connection ,stmt and resultset here
@@ -237,6 +257,7 @@ public class DataBase {
             stmt = con.createStatement();
             stmt.executeUpdate(query);
         } catch (SQLException sqlEx) {
+            showAlertMessage();
             sqlEx.printStackTrace();
         } finally {
             //close connection ,stmt and resultset here
@@ -252,6 +273,7 @@ public class DataBase {
             stmt = con.createStatement();
             stmt.executeUpdate(query);
         } catch (SQLException sqlEx) {
+            showAlertMessage();
             sqlEx.printStackTrace();
         } finally {
             //close connection ,stmt and resultset here
@@ -286,6 +308,7 @@ public class DataBase {
                 exerciseList.add(exerciseWithId);
             }
         } catch (SQLException sqlEx) {
+            showAlertMessage();
             sqlEx.printStackTrace();
         } finally {
             //close connection ,stmt and resultset here
@@ -307,6 +330,7 @@ public class DataBase {
                 exercise.add(rs.getString("Text_execirse"));
             }
         } catch (SQLException sqlEx) {
+            showAlertMessage();
             sqlEx.printStackTrace();
         } finally {
             //close connection ,stmt and resultset here
@@ -381,6 +405,7 @@ public class DataBase {
             stmt = con.createStatement();
             stmt.executeUpdate(query);
         } catch (SQLException sqlEx) {
+            showAlertMessage();
             sqlEx.printStackTrace();
         } finally {
             //close connection ,stmt and resultset here
@@ -408,6 +433,7 @@ public class DataBase {
                 statistics.add(st);
             }
         } catch (SQLException sqlEx) {
+            showAlertMessage();
             sqlEx.printStackTrace();
         } finally {
             //close connection ,stmt and resultset here
@@ -436,6 +462,7 @@ public class DataBase {
                 statistics.add(st);
             }
         } catch (SQLException sqlEx) {
+            showAlertMessage();
             sqlEx.printStackTrace();
         } finally {
             //close connection ,stmt and resultset here

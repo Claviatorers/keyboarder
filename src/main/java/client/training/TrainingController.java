@@ -159,9 +159,12 @@ public class TrainingController extends FXMLController {
                     trainingModel.inputSymbol((event1.getCharacter().charAt(0)));
                     repaintText();
                     if (trainingModel.isFailed() && trainingModel.getLeftTime() > 0) {
-                        timer.stop();
-                        saveResultTimeMode();
-                        showFailedMessage("Допущено слишком много ошибок!");
+                        if (timer.getStatus() != Animation.Status.STOPPED) {
+                            timer.stop();
+                            scene.removeEventHandler(event1.getEventType(), this);
+                            saveResultTimeMode();
+                            showFailedMessage("Допущено слишком много ошибок!");
+                        }
                     } else if (trainingModel.isDone()) {
                         timer.stop();
                         saveResultTimeMode();
