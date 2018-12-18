@@ -2,6 +2,7 @@ package client.editAccount;
 
 import client.menu.ClientMenu;
 import common.DataBase;
+import common.JsonFileHelper;
 import common.auth.Authorization;
 import common.changePassword.ChangePassword;
 import javafx.event.ActionEvent;
@@ -15,7 +16,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 public class EditAccountController {
-    private DataBase dataBase;
+    private JsonFileHelper helper;
     private Stage stage;
     private String login;
     @FXML
@@ -23,6 +24,7 @@ public class EditAccountController {
 
     @FXML
     public void initialize(){
+        helper = JsonFileHelper.getInstance();
         name.textProperty().addListener((observable, oldValue, newValue) -> {
             if(!newValue.matches("[а-яА-Я]{0,20}")) {
                 name.textProperty().setValue(oldValue);
@@ -47,18 +49,10 @@ public class EditAccountController {
     }
 
     public void save(ActionEvent actionEvent) throws Exception {
-        dataBase = new DataBase();
-        dataBase.editUserName(login, name.getText());
+        helper.editUserName(login, name.getText());
         stage.hide();
         ClientMenu clientMenu = new ClientMenu(login);
         clientMenu.show();
-    }
-
-
-    public void changePassword(ActionEvent actionEvent) throws Exception {
-        stage.close();
-        ChangePassword changePassword = new ChangePassword(login);
-        changePassword.show();
     }
 
     public void DeleteUser(ActionEvent actionEvent) throws IOException {
@@ -67,8 +61,7 @@ public class EditAccountController {
         alert.setHeaderText("Удалить учетную запись?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK){
-            dataBase = new DataBase();
-            dataBase.deleteUser(login);
+            helper.deleteUser(login);
             stage.hide();
             Authorization authorization = new Authorization();
             authorization.show();

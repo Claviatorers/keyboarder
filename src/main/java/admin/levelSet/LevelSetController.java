@@ -1,19 +1,22 @@
 package admin.levelSet;
 
 import admin.Menu;
+import client.DifficultyLevel;
 import common.DataBase;
+import common.JsonFileHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
+import model.Difficulty;
 
 public class LevelSetController {
     private Stage stage;
-    DataBase dataBase;
+    private JsonFileHelper helper;
     @FXML
-    ComboBox<String> level;
+    private ComboBox<String> level;
     @FXML
     Spinner<Double> pressTime;
     @FXML
@@ -23,8 +26,9 @@ public class LevelSetController {
 
     @FXML
     public void initialize(){
-        level.getItems().addAll("Начальный", "Легкий", "Средний", "Сложный", "Очень сложный");
-        level.setValue("Начальный");
+        helper = JsonFileHelper.getInstance();
+        level.getItems().addAll("Легкий", "Средний", "Сложный");
+        level.setValue("Легкий");
         SpinnerValueFactory<Double> timeFactory = new SpinnerValueFactory.DoubleSpinnerValueFactory(0.2, 2, 0.2, 0.1);
         SpinnerValueFactory<Integer> lengthFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(15,150,15);
         SpinnerValueFactory<Integer> mistakeFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,10,0);
@@ -65,12 +69,11 @@ public class LevelSetController {
     }
 
     public void getValues(){
-        dataBase = new DataBase();
         String curLevel = level.getValue();
-        String[] sets = dataBase.getLevelSets(curLevel);
-        pressTime.getValueFactory().setValue(Double.parseDouble(sets[0]));
-        maxLength.getValueFactory().setValue(Integer.parseInt(sets[1]));
-        mistakePercent.getValueFactory().setValue(Integer.parseInt(sets[2]));
+        Difficulty difficulty = helper.getDifficultyByLevel(DifficultyLevel.getLevelByName(curLevel));
+        pressTime.getValueFactory().setValue(difficulty.getKeyPressTime());
+        maxLength.getValueFactory().setValue(difficulty.getMaxExerciseLength());
+        mistakePercent.getValueFactory().setValue(difficulty.getMaxMistakesInPercent());
     }
 
 
@@ -83,8 +86,7 @@ public class LevelSetController {
     }
 
     public void save(ActionEvent actionEvent) throws Exception {
-        dataBase = new DataBase();
-        dataBase.setLevelSets(this.level.getValue(), pressTime.getValue(), maxLength.getValue(), mistakePercent.getValue());
+        helper.updateDifficulty(DifficultyLevel.getLevelByName(level.getValue()), pressTime.getValue(), maxLength.getValue(), mistakePercent.getValue());
         stage.hide();
     }
 }

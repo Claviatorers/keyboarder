@@ -1,68 +1,26 @@
 package common.auth;
 
+import static common.JavaFXHelper.*;
+
 import admin.Menu;
+import callback.Callback;
 import client.menu.ClientMenu;
-import common.DataBase;
+import common.JsonFileHelper;
 import common.about.About;
-import common.registration.Registration;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import model.User;
 
 import java.io.IOException;
 
 public class AuthorizationController {
-    DataBase dataBase;
+    JsonFileHelper helper = null;
     private Stage stage;
     @FXML
     private TextField login;
-    @FXML
-    private PasswordField password;
-
-
-    public void toRegistration(ActionEvent actionEvent) throws Exception {
-        stage.hide();
-        Registration registration = new Registration();
-        registration.show();
-    }
-
-    public void enter(ActionEvent actionEvent) throws Exception {
-        dataBase = new DataBase();
-        String loginText = login.getText();
-        String passwordText = password.getText();
-        if(loginText.isEmpty() || passwordText.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Ошибка!");
-            alert.setHeaderText("Заполните все поля!");
-            alert.showAndWait();
-        }
-        else if (loginText.equals("admin") && passwordText.equals(dataBase.getPassword("admin"))) {
-            stage.hide();
-            Menu menu = new Menu();
-            menu.show();
-        }
-        else if (!loginText.equals("admin") && dataBase.isExistLogin(loginText) &&  passwordText.equals(dataBase.getPassword(loginText))) {
-            stage.hide();
-            ClientMenu clientMenu = new ClientMenu(loginText);
-            clientMenu.show();
-        }
-        else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText("Неверный пароль или логин!");
-            alert.showAndWait();
-        }
-    }
-
-    void init(Stage stage) {
-        this.stage = stage;
-    }
 
     @FXML
     public void initialize(){
@@ -71,7 +29,40 @@ public class AuthorizationController {
                 login.textProperty().setValue(oldValue);
             }
         });
+        helper = JsonFileHelper.getInstance();
     }
+
+    public void enterPressed(ActionEvent actionEvent) throws Exception {
+        String loginText = login.getText();
+        if(loginText.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Ошибка!");
+            alert.setHeaderText("Заполните поле логина!");
+            alert.showAndWait();
+        }
+        else if (loginText.equals("admin")) {
+            stage.hide();
+            Menu menu = new Menu();
+            menu.show();
+        }
+        else {
+            User user = helper.getUserByLogin(loginText);
+            if (user != null) {
+                stage.hide();
+                ClientMenu clientMenu = new ClientMenu(user.getLogin());
+                clientMenu.show();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText("Пользователя с таким логином не существует!");
+                alert.showAndWait();
+            }
+        }
+    }
+
+    void init(Stage stage) {
+        this.stage = stage;
+    }
+
 
     public void help(ActionEvent actionEvent) throws IOException {
         stage.hide();
@@ -83,5 +74,21 @@ public class AuthorizationController {
         stage.hide();
         About about = new About(false, "auth");
         about.show();
+    }
+
+    public void registrationPressed(ActionEvent event) {
+        String loginText = login.getText();
+        User user = new User(loginText, loginText);
+        helper.addUser(user, new Callback<User>() {
+            @Override
+            public void onSuccess(User object) {
+                showMessage("Новый пользователь зарегистрирован!", Alert.AlertType.INFORMATION);
+            }
+
+            @Override
+            public void onFail(String errorMessage) {
+                showMessage(errorMessage, Alert.AlertType.ERROR);
+            }
+        });
     }
 }

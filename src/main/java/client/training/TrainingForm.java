@@ -9,11 +9,11 @@ import java.io.IOException;
 
 public class TrainingForm extends Form {
 
-    public TrainingForm(Exercise exercise, Mode mode, String login) throws IOException {
+    public TrainingForm(Exercise exercise, String login) throws IOException {
         super(PathConstants.TRAINING_PATH, "Тренировка");
 
         TrainingController trainingController = (TrainingController) controller;
-        TrainingModel trainingModel = TrainingModel.getTrainingModel(mode, exercise);
+        TrainingModel trainingModel = TrainingModel.getTrainingModel(exercise);
         trainingController.setTrainingModel(trainingModel);
         trainingController.setSceneHandlers(stage.getScene());
         trainingController.setForm(this);

@@ -2,23 +2,22 @@ package admin.userAccounts;
 
 public class Statistic {
     private String login;
-    private String date;
-    private String level;
-    private int mistake;
+    private String difficulty;
     private int time;
-    private int score;
-
+    private String text;
 
     public Statistic() {
     }
 
-    public Statistic(String login, String date, String level, int mistake, int time, int score) {
+    public Statistic(String login, String difficulty, int time, String text) {
         this.login = login;
-        this.date = date;
-        this.level = level;
-        this.mistake = mistake;
+        this.difficulty = difficulty;
         this.time = time;
-        this.score = score;
+        this.text = text;
+    }
+
+    public String getText() {
+        return text;
     }
 
     public String getLogin() {
@@ -29,28 +28,12 @@ public class Statistic {
         this.login = login;
     }
 
-    public String getDate() {
-        return date;
+    public String getDifficulty() {
+        return difficulty;
     }
 
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
-    }
-
-    public int getMistake() {
-        return mistake;
-    }
-
-    public void setMistakes(int mistake) {
-        this.mistake = mistake;
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
     }
 
     public int getTime() {
@@ -59,13 +42,5 @@ public class Statistic {
 
     public void setTime(int time) {
         this.time = time;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
     }
 }

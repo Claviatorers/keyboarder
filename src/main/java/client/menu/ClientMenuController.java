@@ -2,36 +2,37 @@ package client.menu;
 
 import client.DifficultyLevel;
 import client.Exercise;
-import client.Mode;
 import client.training.TrainingForm;
 import client.editAccount.EditAccount;
 import client.userStatistic.UserStatistic;
-import common.DataBase;
-import common.UserInfo;
+import common.JsonFileHelper;
 import common.about.About;
 import common.auth.Authorization;
-import common.changePassword.ChangePassword;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import model.Difficulty;
+import model.ExerciseDao;
+import model.User;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class ClientMenuController {
-    public ToggleGroup modeGroup;
+    @FXML private Label difficultyLevel;
     @FXML private VBox exercisePane;
     @FXML private Label lastTrainingDate;
     @FXML private VBox buttonsBox;
     @FXML private ListView exerciseListView;
-    private DataBase dataBase;
+    private JsonFileHelper helper;
     private String login;
     private Stage stage;
     @FXML
@@ -40,18 +41,11 @@ public class ClientMenuController {
     @SuppressWarnings("unchecked")
     @FXML
     public void initialize(){
-        dataBase = new DataBase();
+        helper = JsonFileHelper.getInstance();
         exerciseListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 stage.close();
-                ToggleButton selected = (ToggleButton) modeGroup.getSelectedToggle();
-                Mode mode;
-                if (selected.getText().equals("На время")){
-                    mode = Mode.Time;
-                } else {
-                    mode = Mode.Score;
-                }
-                TrainingForm trainingForm = new TrainingForm((Exercise) newValue, mode, login);
+                TrainingForm trainingForm = new TrainingForm((Exercise) newValue, login);
                 trainingForm.show();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -70,22 +64,17 @@ public class ClientMenuController {
 
     }
 
-    void setLogin(String login){
-        this.login = login;
-        setName();
-//        List<UserInfo> userInfoList = dataBase.getUserInformation(login);
-//        final Date[] lastDate = {new Date(0)};
-//        userInfoList.forEach(userInfo -> {
-//            if (userInfo.getTrainingDate().after(lastDate[0])) {
-//                lastDate[0] = userInfo.getTrainingDate();
-//            }
-//        });
-//        Format formatter = new SimpleDateFormat("dd/MM/yyyy");
-//        lastTrainingDate.setText(formatter.format(lastDate[0]));
-    }
-
-    private void setName(){
-        name.setText(dataBase.getName(login));
+    void setUserByLogin(String login){
+        User user = helper.getUserByLogin(login);
+        this.login = user.getLogin();
+        name.setText(user.getName());
+        Date lastTrainingDateUnformatted = helper.getLastTrainingDate(login);
+        if(lastTrainingDateUnformatted != null){
+            DateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            lastTrainingDate.setText(simpleDateFormat.format(lastTrainingDateUnformatted));
+        } else {
+            lastTrainingDate.setText("");
+        }
     }
 
     public void editAccount(ActionEvent actionEvent) throws Exception {
@@ -94,33 +83,30 @@ public class ClientMenuController {
         editAccount.show();
     }
 
-    public void beginnerPressed(ActionEvent actionEvent) {
-        setListView(DifficultyLevel.Elementary);
-    }
-
     public void easyPressed(ActionEvent actionEvent) {
         setListView(DifficultyLevel.Easy);
+        difficultyLevel.setText("Легкий");
     }
 
     public void mediumPressed(ActionEvent actionEvent) {
         setListView(DifficultyLevel.Medium);
+        difficultyLevel.setText("Средний");
     }
 
     public void hardPressed(ActionEvent actionEvent) {
         setListView(DifficultyLevel.Hard);
-    }
-
-    public void veryHardPressed(ActionEvent actionEvent) {
-        setListView(DifficultyLevel.Master);
+        difficultyLevel.setText("Сложный");
     }
 
     private void setListView(DifficultyLevel difficultyLevel){
-        String level = difficultyLevel.toRussian();
-        String[] levelParameters = dataBase.getLevelSets(level);
-        List<String[]> exerciseTextsWithId = dataBase.getExercises(difficultyLevel);
+        Difficulty difficulty = helper.getDifficultyByLevel(difficultyLevel);
+        List<ExerciseDao> exerciseList = helper.getExercisesByLevel(difficultyLevel);
         ObservableList<Exercise> exercises = FXCollections.observableArrayList();
-        for (String[] exerciseText : exerciseTextsWithId) {
-            exercises.add(new Exercise(Integer.parseInt(exerciseText[0]), exerciseText[1], difficultyLevel, Double.parseDouble(levelParameters[0]), Integer.parseInt(levelParameters[2])));
+        for (ExerciseDao exerciseDao : exerciseList) {
+            exercises.add(new Exercise(
+                    exerciseDao.getId(), exerciseDao.getText(), difficultyLevel, difficulty.getKeyPressTime(), difficulty.getMaxMistakesInPercent()
+                    )
+            );
         }
         //noinspection unchecked
         exerciseListView.setItems(exercises);

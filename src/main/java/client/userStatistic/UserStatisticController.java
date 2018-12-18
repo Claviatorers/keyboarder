@@ -1,69 +1,58 @@
 package client.userStatistic;
 
-import admin.Menu;
 import admin.userAccounts.Statistic;
 import client.menu.ClientMenu;
-import common.DataBase;
+import common.JsonFileHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import model.ExerciseDao;
+import model.ExerciseStat;
+import model.UserStat;
+
+import java.util.List;
+import java.util.Set;
 
 public class UserStatisticController {
     private Stage stage;
     private String login;
 
-    private ObservableList<Statistic> statiticsData = FXCollections.observableArrayList();
-
-    DataBase dataBase;
+    JsonFileHelper helper;
     @FXML
     ListView<String> users;
     @FXML
-    TableView<Statistic> statistics;
+    TableView<StatisticView> statistics;
 
     @FXML
-    private TableColumn<Statistic, String> loginColumn;
+    private TableColumn<StatisticView, String> levelColumn;
 
     @FXML
-    private TableColumn<Statistic, String> dateColumn;
+    private TableColumn<StatisticView, Integer> timeColumn;
 
     @FXML
-    private TableColumn<Statistic, String> levelColumn;
-
-    @FXML
-    private TableColumn<Statistic, Integer> mistakeColumn;
-
-    @FXML
-    private TableColumn<Statistic, Integer> timeColumn;
-
-    @FXML
-    private TableColumn<Statistic, Integer> scoreColumn;
+    private TableColumn<StatisticView, String> difficultyColumn;
 
     @FXML
     public void initialize(){
-
-        loginColumn.setCellValueFactory(new PropertyValueFactory<Statistic, String>("login"));
-        dateColumn.setCellValueFactory(new PropertyValueFactory<Statistic, String>("date"));
-        levelColumn.setCellValueFactory(new PropertyValueFactory<Statistic, String>("level"));
-        timeColumn.setCellValueFactory(new PropertyValueFactory<Statistic, Integer>("time"));
-        mistakeColumn.setCellValueFactory(new PropertyValueFactory<Statistic, Integer>("mistake"));
-        scoreColumn.setCellValueFactory(new PropertyValueFactory<Statistic, Integer>("score"));
-
+        difficultyColumn.setCellValueFactory(new PropertyValueFactory<>("exerciseDifficulty"));
+        levelColumn.setCellValueFactory(new PropertyValueFactory<>("exerciseText"));
+        timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
     }
-
 
     void init(Stage stage) {
         this.stage = stage;
-        dataBase = new DataBase();
-        statiticsData = dataBase.getUserStatistics(login);
-        statistics.setItems(statiticsData);
-        loginColumn.setVisible(false);
+        helper = JsonFileHelper.getInstance();
+        ObservableList<StatisticView> statisticsData = FXCollections.observableArrayList();
+
+        List<StatisticView> userStatistic = helper.getUserStatisticWithExerciseNames(login);
+        statisticsData.addAll(userStatistic);
+
+        statistics.setItems(statisticsData);
     }
 
     void setLogin(String login){

@@ -17,13 +17,8 @@ abstract class TrainingModel {
         this.exercise = exercise;
     }
 
-    static TrainingModel getTrainingModel(Mode mode, Exercise exercise){
-        switch (mode){
-            case Time: return new TrainingModelTime(exercise);
-            case Score: return new TrainingModelScore(exercise);
-        }
-
-        throw new IllegalArgumentException("Неизвестый режим");
+    static TrainingModel getTrainingModel(Exercise exercise){
+        return new TrainingModelTime(exercise);
     }
 
     public void inputSymbol(char symbol) {
