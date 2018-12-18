@@ -3,7 +3,6 @@ package common;
 import admin.userAccounts.Statistic;
 import client.DifficultyLevel;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -284,11 +283,11 @@ public class DataBase {
 
     public List<String[]> getExercises(DifficultyLevel difficultyLevel) {
         switch (difficultyLevel) {
-            case Elementary : return getExercisesWithId(1);
+
             case Easy: return getExercisesWithId(2);
             case Medium: return getExercisesWithId(3);
             case Hard: return getExercisesWithId(4);
-            case Master: return getExercisesWithId(5);
+
             default: throw new IllegalArgumentException("Неверный уровень сложности");
         }
     }
@@ -425,11 +424,11 @@ public class DataBase {
             while (rs.next()) {
                 Statistic st = new Statistic();
                 st.setLogin(rs.getString("Login"));
-                st.setDate(rs.getString("Train_Date"));
-                st.setLevel(rs.getString("Name_level"));
-                st.setMistakes(rs.getInt("Err_count"));
+                //st.setDate(rs.getString("Train_Date"));
+                st.setDifficulty(rs.getString("Name_level"));
+                //st.setMistakes(rs.getInt("Err_count"));
                 st.setTime(rs.getInt("Time"));
-                st.setScore(rs.getInt("Score"));
+                //st.setScore(rs.getInt("Score"));
                 statistics.add(st);
             }
         } catch (SQLException sqlEx) {
@@ -454,11 +453,11 @@ public class DataBase {
             while (rs.next()) {
                 Statistic st = new Statistic();
                 st.setLogin(rs.getString("Login"));
-                st.setDate(rs.getString("Train_Date"));
-                st.setLevel(rs.getString("Name_level"));
-                st.setMistakes(rs.getInt("Err_count"));
+                //st.setDate(rs.getString("Train_Date"));
+                st.setDifficulty(rs.getString("Name_level"));
+                //st.setMistakes(rs.getInt("Err_count"));
                 st.setTime(rs.getInt("Time"));
-                st.setScore(rs.getInt("Score"));
+                //st.setScore(rs.getInt("Score"));
                 statistics.add(st);
             }
         } catch (SQLException sqlEx) {

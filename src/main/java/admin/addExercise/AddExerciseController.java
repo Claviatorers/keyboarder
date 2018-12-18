@@ -1,15 +1,15 @@
 package admin.addExercise;
 
-import admin.Menu;
 import admin.exerciseSet.ExerciseSet;
-import client.Exercise;
-import common.DataBase;
+import client.DifficultyLevel;
+import common.JsonFileHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Difficulty;
+import model.ExerciseDao;
 
 import java.util.Random;
 
@@ -19,11 +19,10 @@ public class AddExerciseController {
     public TextArea charsField;
 
     private Stage stage;
-    private int levelNum;
-    private String exerciseText;
+    private ExerciseDao exerciseDao;
     private int length;
     private String chars;
-    DataBase dataBase;
+    private JsonFileHelper helper;
     private boolean newEx = true;
     @FXML
     private TextArea text;
@@ -31,37 +30,30 @@ public class AddExerciseController {
 
     @FXML
     public void initialize(){
-
+        helper = JsonFileHelper.getInstance();
     }
 
     void init(Stage stage) {
         this.stage = stage;
     }
 
-    void setLevelNum(int level){
-        levelNum = level;
-        dataBase = new DataBase();
-        String[] sets = dataBase.getCharAndLength(levelNum);
-        chars = sets[0] + " ";
-        length = Integer.parseInt(sets[1]);
+    void setExercise(ExerciseDao exercise){
+        this.exerciseDao = exercise;
+        Difficulty difficulty = helper.getDifficultyByLevel(exercise.getDifficulty());
+        chars = difficulty.getAvailableChars() + " ";
+        length = difficulty.getMaxExerciseLength();
         text.textProperty().addListener((observable, oldValue, newValue) -> {
             if(!newValue.matches("["+ chars +"]{0,"+ length +"}")) {
                 text.textProperty().setValue(oldValue);
             }
         });
         charsField.setText(chars);
-    }
-
-    void setExerciseText(String curText){
-        exerciseText = curText;
-        text.setText(exerciseText);
-        newEx = false;
+        text.setText(exercise.getText());
     }
 
     void close() throws Exception {
         stage.hide();
-        String[] levels = {"Начальный", "Легкий", "Средний", "Сложный", "Очень сложный"};
-        ExerciseSet exerciseSet = new ExerciseSet(levels[levelNum-1]);
+        ExerciseSet exerciseSet = new ExerciseSet(exerciseDao.getDifficulty().toRussian());// todo
         exerciseSet.show();
     }
 
@@ -73,26 +65,25 @@ public class AddExerciseController {
             alert.showAndWait();
             return;
         }
-        dataBase = new DataBase();
         if(newEx) {
-            dataBase.addExercise(levelNum, text.getText());
+            helper.addExercie(text.getText(),exerciseDao.getDifficulty());
         }else {
-            dataBase.editExercise(levelNum, exerciseText, text.getText());
+            helper.updateExercise(exerciseDao.getId(), text.getText(), exerciseDao.getDifficulty());
         }
         this.close();
 
     }
 
     public void generate(ActionEvent actionEvent) {
-        String generatedText = "";
+        StringBuilder generatedText = new StringBuilder();
         Random rnd = new Random(System.currentTimeMillis());
         Random rndLegth = new Random(System.currentTimeMillis());
-        int curLength = 15 + rndLegth.nextInt(length - 15);
+        int curLength = rndLegth.nextInt(length - 5) + 1 + 5;
         while(generatedText.length() < curLength){
             int index = rnd.nextInt(chars.length());
-            generatedText += chars.charAt(index);
+            generatedText.append(chars.charAt(index));
         }
-        text.setText(generatedText);
+        text.setText(generatedText.toString());
     }
 
     public void cancel(ActionEvent actionEvent) throws Exception {

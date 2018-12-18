@@ -26,12 +26,6 @@ public class MenuController{
 
     }
 
-    public void changePassword(ActionEvent actionEvent) throws Exception {
-        stage.close();
-        ChangePassword changePassword = new ChangePassword("admin");
-        changePassword.show();
-    }
-
     public void levelSet(ActionEvent actionEvent) throws Exception {
         stage.close();
         LevelSet levelSet = new LevelSet();
@@ -40,7 +34,7 @@ public class MenuController{
 
     public void exerciseSet(ActionEvent actionEvent) throws Exception {
         stage.close();
-        ExerciseSet exerciseSet = new ExerciseSet("Начальный");
+        ExerciseSet exerciseSet = new ExerciseSet("Легкий");
         exerciseSet.show();
     }
 

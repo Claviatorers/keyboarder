@@ -1,7 +1,9 @@
 package admin.userAccounts;
 
 import admin.Menu;
+import client.userStatistic.StatisticView;
 import common.DataBase;
+import common.JsonFileHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,51 +16,44 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 public class UserAccountsController {
+
     private Stage stage;
 
-    private ObservableList<Statistic> statiticsData = FXCollections.observableArrayList();
+    private ObservableList<StatisticView> statisticsData = FXCollections.observableArrayList();
 
-    DataBase dataBase;
+    private JsonFileHelper helper;
     @FXML
     ListView<String> users;
     @FXML
-    TableView<Statistic> statistics;
+    TableView<StatisticView> statistics;
 
     @FXML
-    private TableColumn<Statistic, String> loginColumn;
+    private TableColumn<StatisticView, String> textColumn;
 
     @FXML
-    private TableColumn<Statistic, String> dateColumn;
+    private TableColumn<StatisticView, String> levelColumn;
 
     @FXML
-    private TableColumn<Statistic, String> levelColumn;
+    private TableColumn<StatisticView, Integer> timeColumn;
 
     @FXML
-    private TableColumn<Statistic, Integer> mistakeColumn;
-
-    @FXML
-    private TableColumn<Statistic, Integer> timeColumn;
-
-    @FXML
-    private TableColumn<Statistic, Integer> scoreColumn;
-
-    @FXML
-    public void initialize(){
-
-        loginColumn.setCellValueFactory(new PropertyValueFactory<Statistic, String>("login"));
-        dateColumn.setCellValueFactory(new PropertyValueFactory<Statistic, String>("date"));
-        levelColumn.setCellValueFactory(new PropertyValueFactory<Statistic, String>("level"));
-        timeColumn.setCellValueFactory(new PropertyValueFactory<Statistic, Integer>("time"));
-        mistakeColumn.setCellValueFactory(new PropertyValueFactory<Statistic, Integer>("mistake"));
-        scoreColumn.setCellValueFactory(new PropertyValueFactory<Statistic, Integer>("score"));
+    public void initialize() {
+        helper = JsonFileHelper.getInstance();
+        users.setItems(FXCollections.observableArrayList());
+        statisticsData = FXCollections.observableArrayList();
+        textColumn.setCellValueFactory(new PropertyValueFactory<>("exerciseText"));
+        levelColumn.setCellValueFactory(new PropertyValueFactory<>("exerciseDifficulty"));
+        timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
         setUsers();
     }
 
-    public void setUsers(){
-        dataBase = new DataBase();
-        users.setItems(dataBase.getUsers());
-        statiticsData = dataBase.getStatistics();
-        statistics.setItems(statiticsData);
+    public void setUsers() {
+        users.getItems().clear();
+        users.getItems().addAll(helper.getUsersLogins());
+
+        statisticsData.clear();
+        statisticsData.addAll(helper.getShareStatistic());
+        statistics.setItems(statisticsData);
     }
 
     void init(Stage stage) {
@@ -73,13 +68,11 @@ public class UserAccountsController {
 
     public void allStatistic(ActionEvent actionEvent) {
         setUsers();
-        loginColumn.setVisible(true);
     }
 
     public void chooseUser(MouseEvent mouseEvent) {
-        dataBase = new DataBase();
-        statiticsData = dataBase.getUserStatistics(users.getSelectionModel().getSelectedItem());
-        statistics.setItems(statiticsData);
-        loginColumn.setVisible(false);
+        statisticsData.clear();
+        statisticsData.addAll(helper.getUserStatisticWithExerciseNames(users.getSelectionModel().getSelectedItem()));
+        statistics.setItems(statisticsData);
     }
 }

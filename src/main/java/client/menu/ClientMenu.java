@@ -1,6 +1,5 @@
 package client.menu;
 
-import admin.MenuController;
 import client.DifficultyLevel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,7 +22,7 @@ public class ClientMenu {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/clientMenu.fxml"));
         Parent root = loader.load();
         clientMenuController = loader.getController();
-        clientMenuController.setLogin(login);
+        clientMenuController.setUserByLogin(login);
         stage = new Stage();
         stage.setTitle("Обучение");
         Scene scene = new Scene(root);

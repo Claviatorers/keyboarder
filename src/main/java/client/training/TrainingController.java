@@ -2,6 +2,7 @@ package client.training;
 
 import client.menu.ClientMenu;
 import common.DataBase;
+import common.JsonFileHelper;
 import form.FXMLController;
 import form.Form;
 import javafx.animation.Animation;
@@ -37,7 +38,7 @@ public class TrainingController extends FXMLController {
     public ToggleButton keyboardStateButton;
     private VirtualKeyboard vk;
     private static final int SEC_IN_MIN = 60;
-    private static final DataBase dataBase = new DataBase();
+    private JsonFileHelper helper;
 
     private TrainingModel trainingModel;
 
@@ -58,6 +59,7 @@ public class TrainingController extends FXMLController {
     @Override
     public void initialize() {
         vk = new VirtualKeyboard(virtualKeyboard);
+        helper = JsonFileHelper.getInstance();
     }
 
     private void setStartParameters(){
@@ -116,7 +118,7 @@ public class TrainingController extends FXMLController {
                     showFailedMessage("Время вышло!");
                 } else {
                     TrainingModelScore trainingModelScore = (TrainingModelScore) trainingModel;
-                    saveResultScoreMode();
+                    //saveResultScoreMode();
                     if (trainingModelScore.getScore() >= trainingModelScore.getPassScore()) {
                         showCompletedMessage();
                     } else {
@@ -176,12 +178,8 @@ public class TrainingController extends FXMLController {
         scene.setOnKeyTyped(eventHandler);
     }
 
-    private void saveResultScoreMode() {
-        dataBase.saveStatistic(Calendar.getInstance().getTime(), ((TrainingModelScore)trainingModel).getScore(), login, trainingModel.getID());
-    }
-
     private void saveResultTimeMode() {
-        dataBase.saveStatistic(Calendar.getInstance().getTime(), ((TrainingModelTime)trainingModel).getCurrentMistakes(),
+        helper.updateStats(Calendar.getInstance().getTime(),
                 trainingModel.getMaxTime() - trainingModel.getLeftTime(), login, trainingModel.getID());
     }
 
