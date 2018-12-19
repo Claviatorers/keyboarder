@@ -6,17 +6,23 @@ import common.JsonFileHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import model.Difficulty;
 import model.ExerciseDao;
+import model.Zone;
 
+import java.util.List;
 import java.util.Random;
 
 
 public class AddExerciseController {
-    @FXML
-    public TextArea charsField;
+
+    @FXML private TextArea charsField;
+    @FXML private Label timeToPress;
+    @FXML private Label mistakesPercent;
+    @FXML private Label maxLength;
 
     private Stage stage;
     private ExerciseDao exerciseDao;
@@ -40,7 +46,11 @@ public class AddExerciseController {
     void setExercise(ExerciseDao exercise){
         this.exerciseDao = exercise;
         Difficulty difficulty = helper.getDifficultyByLevel(exercise.getDifficulty());
-        chars = difficulty.getAvailableChars() + " ";
+        StringBuilder charsBuilder = new StringBuilder();
+        for (Zone zone: difficulty.getAvailableZones()) {
+            charsBuilder.append(zone.getChars());
+        }
+        chars = charsBuilder.toString();
         length = difficulty.getMaxExerciseLength();
         text.textProperty().addListener((observable, oldValue, newValue) -> {
             if(!newValue.matches("["+ chars +"]{0,"+ length +"}")) {
@@ -49,11 +59,15 @@ public class AddExerciseController {
         });
         charsField.setText(chars);
         text.setText(exercise.getText());
+
+        maxLength.setText(String.valueOf(length));
+        timeToPress.setText(difficulty.getKeyPressTime() + " c");
+        mistakesPercent.setText(difficulty.getMaxMistakesInPercent() + "%");
     }
 
     void close() throws Exception {
         stage.hide();
-        ExerciseSet exerciseSet = new ExerciseSet(exerciseDao.getDifficulty().toRussian());// todo
+        ExerciseSet exerciseSet = new ExerciseSet(exerciseDao.getDifficulty().toRussian());
         exerciseSet.show();
     }
 

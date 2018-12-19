@@ -1,28 +1,25 @@
 package common;
 
-import admin.userAccounts.Statistic;
 import callback.Callback;
 import client.DifficultyLevel;
-import client.Exercise;
 import client.userStatistic.StatisticView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import javafx.collections.ObservableList;
 import jsonUtil.ListOfGeneric;
 import model.Difficulty;
 import model.ExerciseDao;
 import model.ExerciseStat;
 import model.User;
 import model.UserStat;
+import model.Zone;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -67,14 +64,15 @@ public class JsonFileHelper {
             DIFFICULTIES = createFileIfNotExist("difficulties.json");
             if (readFromJson(DIFFICULTIES, Difficulty.class).isEmpty()){
                 List<Difficulty> difficulties = new ArrayList<>();
-                String easyChars = "фываолдж";
-                String mediumChars = easyChars + "енприткгмь";
-                String hardChars = mediumChars + "ячсбю.йцукгшщзхъэё";
-                Difficulty easy = new Difficulty(DifficultyLevel.Easy, 1.0, 10, 10, easyChars);
-                Difficulty normal = new Difficulty(DifficultyLevel.Medium, 0.9, 9, 15, mediumChars);
-                Difficulty hard = new Difficulty(DifficultyLevel.Hard, 0.8, 8, 20, hardChars);
+                Zone[] zonesArr = {Zone.Zone1, Zone.Zone2};
+                List<Zone> easyZones = Arrays.asList(zonesArr);
+                Difficulty easy = new Difficulty(DifficultyLevel.Easy, 1.0, 10, 10, Arrays.asList(zonesArr));
+                zonesArr = new Zone[]{Zone.Zone1, Zone.Zone2, Zone.Zone3};
+                Difficulty medium = new Difficulty(DifficultyLevel.Medium, 0.9, 9, 15, Arrays.asList(zonesArr));
+                zonesArr = new Zone[]{Zone.Zone1, Zone.Zone2, Zone.Zone3, Zone.Zone4, Zone.Zone5};
+                Difficulty hard = new Difficulty(DifficultyLevel.Hard, 0.8, 8, 20, Arrays.asList(zonesArr));
                 difficulties.add(easy);
-                difficulties.add(normal);
+                difficulties.add(medium);
                 difficulties.add(hard);
                 writeToJson(difficulties, DIFFICULTIES);
             }
@@ -513,7 +511,7 @@ public class JsonFileHelper {
         return statistics;
     }
 
-    public void updateDifficulty(DifficultyLevel difficultyLevel, Double keyPressTime, Integer maxLength, Integer mistakePercent) {
+    public void updateDifficulty(DifficultyLevel difficultyLevel, Double keyPressTime, Integer maxLength, Integer mistakePercent, List<Zone> availableZones) {
         List<Difficulty> difficulties = null;
         try {
             difficulties = readFromJson(DIFFICULTIES, Difficulty.class);
@@ -531,7 +529,7 @@ public class JsonFileHelper {
 
         if (difficultyToUpdate != null){
             int index = difficulties.indexOf(difficultyToUpdate);
-            Difficulty updatedDifficulty = new Difficulty(difficultyLevel, keyPressTime, mistakePercent, maxLength, difficultyToUpdate.getAvailableChars());
+            Difficulty updatedDifficulty = new Difficulty(difficultyLevel, keyPressTime, mistakePercent, maxLength, availableZones);
 
             difficulties.set(index, updatedDifficulty);
             try {

@@ -2,6 +2,8 @@ package model;
 
 import client.DifficultyLevel;
 
+import java.util.List;
+
 /**
  * Created by Александр on 16.12.2018 in 15:21.
  */
@@ -10,18 +12,18 @@ public class Difficulty {
     private final double keyPressTime;
     private final int maxMistakesInPercent;
     private final int maxExerciseLength;
-    private final String availableChars;
+    private final List<Zone> availableZones;
 
-    public Difficulty(DifficultyLevel level, double keyPressTime, int maxMistakesInPercent, int maxExerciseLength, String availableChars) {
+    public Difficulty(DifficultyLevel level, double keyPressTime, int maxMistakesInPercent, int maxExerciseLength, List<Zone> availableZones) {
         this.level = level;
         this.keyPressTime = keyPressTime;
         this.maxMistakesInPercent = maxMistakesInPercent;
         this.maxExerciseLength = maxExerciseLength;
-        this.availableChars = availableChars;
+        this.availableZones = availableZones;
     }
 
-    public String getAvailableChars() {
-        return availableChars;
+    public List<Zone> getAvailableZones() {
+        return availableZones;
     }
 
     public DifficultyLevel getLevel() {

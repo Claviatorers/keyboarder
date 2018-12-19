@@ -5,11 +5,16 @@ import client.DifficultyLevel;
 import common.JsonFileHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
 import model.Difficulty;
+import model.Zone;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LevelSetController {
     private Stage stage;
@@ -22,6 +27,11 @@ public class LevelSetController {
     Spinner<Integer> maxLength;
     @FXML
     Spinner<Integer> mistakePercent;
+    @FXML private CheckBox zone1;
+    @FXML private CheckBox zone2;
+    @FXML private CheckBox zone3;
+    @FXML private CheckBox zone4;
+    @FXML private CheckBox zone5;
 
     @FXML
     public void initialize(){
@@ -73,6 +83,12 @@ public class LevelSetController {
         pressTime.getValueFactory().setValue(difficulty.getKeyPressTime());
         maxLength.getValueFactory().setValue(difficulty.getMaxExerciseLength());
         mistakePercent.getValueFactory().setValue(difficulty.getMaxMistakesInPercent());
+        List<Zone> zones = difficulty.getAvailableZones();
+        zone1.setSelected(zones.contains(Zone.Zone1));
+        zone2.setSelected(zones.contains(Zone.Zone2));
+        zone3.setSelected(zones.contains(Zone.Zone3));
+        zone4.setSelected(zones.contains(Zone.Zone4));
+        zone5.setSelected(zones.contains(Zone.Zone5));
     }
 
 
@@ -85,7 +101,13 @@ public class LevelSetController {
     }
 
     public void save(ActionEvent actionEvent) throws Exception {
-        helper.updateDifficulty(DifficultyLevel.getLevelByName(level.getValue()), pressTime.getValue(), maxLength.getValue(), mistakePercent.getValue());
+        List<Zone> zoneList = new ArrayList<>();
+        if (zone1.isSelected()) zoneList.add(Zone.Zone1);
+        if (zone2.isSelected()) zoneList.add(Zone.Zone2);
+        if (zone3.isSelected()) zoneList.add(Zone.Zone3);
+        if (zone4.isSelected()) zoneList.add(Zone.Zone4);
+        if (zone5.isSelected()) zoneList.add(Zone.Zone5);
+        helper.updateDifficulty(DifficultyLevel.getLevelByName(level.getValue()), pressTime.getValue(), maxLength.getValue(), mistakePercent.getValue(), zoneList);
         stage.hide();
     }
 }
