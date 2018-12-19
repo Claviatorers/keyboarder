@@ -2,7 +2,6 @@ package admin.userAccounts;
 
 import admin.Menu;
 import client.userStatistic.StatisticView;
-import common.DataBase;
 import common.JsonFileHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

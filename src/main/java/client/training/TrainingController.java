@@ -1,7 +1,6 @@
 package client.training;
 
 import client.menu.ClientMenu;
-import common.DataBase;
 import common.JsonFileHelper;
 import form.FXMLController;
 import form.Form;
@@ -23,7 +22,6 @@ import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Optional;
 
 public class TrainingController extends FXMLController {

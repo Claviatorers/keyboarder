@@ -1,10 +1,8 @@
 package client.editAccount;
 
 import client.menu.ClientMenu;
-import common.DataBase;
 import common.JsonFileHelper;
 import common.auth.Authorization;
-import common.changePassword.ChangePassword;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;

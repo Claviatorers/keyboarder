@@ -2,7 +2,6 @@ package admin.levelSet;
 
 import admin.Menu;
 import client.DifficultyLevel;
-import common.DataBase;
 import common.JsonFileHelper;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
