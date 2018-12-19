@@ -5,8 +5,6 @@ import admin.levelSet.LevelSet;
 import admin.userAccounts.UserAccounts;
 import common.about.About;
 import common.auth.Authorization;
-import common.changePassword.ChangePassword;
-import common.registration.Registration;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
 
