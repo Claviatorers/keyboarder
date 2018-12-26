@@ -72,7 +72,10 @@
          <GridPane.margin>
             <Insets left="10.0" />
          </GridPane.margin></Label>
-      <Button mnemonicParsing="false" onAction="#editAccount" prefHeight="39.0" prefWidth="101.0" text="редактировать" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
+      <Button mnemonicParsing="false" onAction="#editAccount" prefHeight="20.0" prefWidth="150.0" text="редактировать" GridPane.halignment="LEFT" GridPane.rowIndex="1">
+         <GridPane.margin>
+            <Insets left="40.0" />
+         </GridPane.margin></Button>
       <Label prefHeight="17.0" prefWidth="35.0" text="Имя:" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="40.0" />
