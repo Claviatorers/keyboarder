@@ -178,7 +178,10 @@ public class TrainingController extends FXMLController {
 
     private void saveResultTimeMode() {
         helper.updateStats(Calendar.getInstance().getTime(),
-                trainingModel.getMaxTime() - trainingModel.getLeftTime(), login, trainingModel.getID());
+                trainingModel.getMaxTime() - trainingModel.getLeftTime(),
+                ((TrainingModelTime) trainingModel).getCurrentMistakes(),
+                trainingModel.exercise.getText().length(),
+                login, trainingModel.getID());
     }
 
     private void showFailedMessage(String message) {

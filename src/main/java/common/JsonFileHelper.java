@@ -320,7 +320,7 @@ public class JsonFileHelper {
         return filteredExercises;
     }
 
-    public void updateStats(Date trainingDate, int usedTime, String login, int exerxiseId) {
+    public void updateStats(Date trainingDate, int usedTime, int mistakes, int textLength, String login, int exerxiseId) {
         List<UserStat> userStats = null;
         try {
             userStats = readFromJson(STATS_USER, UserStat.class);
@@ -345,7 +345,8 @@ public class JsonFileHelper {
         stats.addAll(userStatToUpdate.getAverageTimeForExercises().values());
 
         ExerciseStat exerciseStatToUpdate = userStatToUpdate.getAverageTimeForExercises().get(exerxiseId);
-        ExerciseStat updatedExerciseStat = updateExerciseAverageTimeOrCreate(exerciseStatToUpdate, usedTime, stats);
+        ExerciseStat updatedExerciseStat = updateExerciseAverageTimeOrCreate(
+                exerciseStatToUpdate, exerxiseId, usedTime, mistakes, textLength, stats);
 
         Map<Integer, ExerciseStat> updatedExerciseStatMap = userStatToUpdate.getAverageTimeForExercises();
         updatedExerciseStatMap.put(updatedExerciseStat.getExerciseId(), updatedExerciseStat);
@@ -384,7 +385,8 @@ public class JsonFileHelper {
             }
         }
 
-        ExerciseStat updatedStat = updateExerciseAverageTimeOrCreate(exerciseStat, usedTime, exerciseStats);
+        ExerciseStat updatedStat = updateExerciseAverageTimeOrCreate(
+                exerciseStat, exerxiseId, usedTime, mistakes, textLength, exerciseStats);
         int index = exerciseStats.indexOf(exerciseStat);
         if (index != -1){
             exerciseStats.set(index, updatedStat);
@@ -399,24 +401,27 @@ public class JsonFileHelper {
         }
     }
 
-    private ExerciseStat updateExerciseAverageTimeOrCreate(ExerciseStat oldExerciseStat, int timeToAdd, List<ExerciseStat> exercises){
+    private ExerciseStat updateExerciseAverageTimeOrCreate(ExerciseStat oldExerciseStat, int exerxiseId, int timeToAdd, int mistakesToAdd,
+                                                           int textLength,
+                                                           List<ExerciseStat> exercises){
         if (oldExerciseStat != null) {
             int previousAverageTime = oldExerciseStat.getAverageTime();
             int previousCompletedTimes = oldExerciseStat.getCompletedTimes();
+            double previousAverageMistakes = oldExerciseStat.getAverageMistakes();
+            int previousAverageCharsPerMinute = oldExerciseStat.getAverageCharsPerMinute();
 
             int nowCompletedTimes = previousCompletedTimes + 1;
             int nowAverageTime = (previousAverageTime * previousCompletedTimes + timeToAdd) / nowCompletedTimes;
+            double nowAverageMistakes = (previousAverageMistakes * previousCompletedTimes + mistakesToAdd) / nowCompletedTimes;
+
+            int nowCharsPerMinute = (textLength / timeToAdd) * 60;// 60 seconds in minute
+            int nowAverageCharsPerMinute = (previousAverageCharsPerMinute * previousCompletedTimes + nowCharsPerMinute) / nowCompletedTimes;
+
             return new ExerciseStat(
-                    oldExerciseStat.getExerciseId(), nowAverageTime, nowCompletedTimes);
+                    oldExerciseStat.getExerciseId(), nowAverageTime, nowCompletedTimes, nowAverageCharsPerMinute,  nowAverageMistakes);
         } else {
-            int id;
-            if (!exercises.isEmpty()){
-                id = exercises.get(exercises.size() - 1).getExerciseId() + 1;
-            } else {
-                id = 0;
-            }
             return new ExerciseStat(
-                    id, timeToAdd, 1);
+                    exerxiseId, timeToAdd, 1, (textLength / timeToAdd) * 60, mistakesToAdd);
         }
     }
 
@@ -499,8 +504,9 @@ public class JsonFileHelper {
                     }
                 }
                 if (exerciseDao != null) {
+                    ExerciseStat exerciseStat = userStat.getAverageTimeForExercises().get(id);
                     StatisticView statistic = new StatisticView(exerciseDao.getDifficulty().toRussian(), exerciseDao.getText(),
-                            userStat.getAverageTimeForExercises().get(id).getAverageTime());
+                            exerciseStat.getAverageTime(), exerciseStat.getAverageCharsPerMinute(), exerciseStat.getAverageMistakes());
                     statistics.add(statistic);
                 }
             }
@@ -572,7 +578,9 @@ public class JsonFileHelper {
         for (ExerciseStat stat : stats) {
             for (ExerciseDao exercise : exercises) {
                 if (stat.getExerciseId() == exercise.getId()){
-                    statisticViewList.add(new StatisticView(exercise.getDifficulty().toRussian(), exercise.getText(), stat.getAverageTime()));
+                    statisticViewList.add(new StatisticView(
+                            exercise.getDifficulty().toRussian(), exercise.getText(), stat.getAverageTime(),
+                            stat.getAverageCharsPerMinute(), stat.getAverageMistakes()));
                 }
             }
         }

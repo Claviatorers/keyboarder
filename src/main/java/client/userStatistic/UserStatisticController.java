@@ -1,22 +1,20 @@
 package client.userStatistic;
 
-import admin.userAccounts.Statistic;
 import client.menu.ClientMenu;
 import common.JsonFileHelper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import model.ExerciseDao;
-import model.ExerciseStat;
-import model.UserStat;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
-import java.util.Set;
 
 public class UserStatisticController {
     private Stage stage;
@@ -29,6 +27,12 @@ public class UserStatisticController {
     TableView<StatisticView> statistics;
 
     @FXML
+    private TableColumn<StatisticView, Integer> avgCharsPerMinuteColumn;
+
+    @FXML
+    private TableColumn<StatisticView, Double> mistakesColumn;
+
+    @FXML
     private TableColumn<StatisticView, String> levelColumn;
 
     @FXML
@@ -39,9 +43,23 @@ public class UserStatisticController {
 
     @FXML
     public void initialize(){
+        DecimalFormat formatter = new DecimalFormat("#.##");
         difficultyColumn.setCellValueFactory(new PropertyValueFactory<>("exerciseDifficulty"));
         levelColumn.setCellValueFactory(new PropertyValueFactory<>("exerciseText"));
         timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
+        mistakesColumn.setCellValueFactory(new PropertyValueFactory<>("averageMistakes"));
+        mistakesColumn.setCellFactory(tc -> new TableCell<StatisticView, Double>() {
+            @Override
+            protected void updateItem(Double mistakes, boolean empty) {
+                super.updateItem(mistakes, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText(formatter.format(mistakes));
+                }
+            }
+        });
+        avgCharsPerMinuteColumn.setCellValueFactory(new PropertyValueFactory<>("averageCharsPerMinute"));
     }
 
     void init(Stage stage) {

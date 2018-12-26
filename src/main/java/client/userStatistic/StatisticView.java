@@ -7,11 +7,15 @@ public class StatisticView {
     private String exerciseDifficulty;
     private String exerciseText;
     private int time;
+    private int averageCharsPerMinute;
+    private double averageMistakes;
 
-    public StatisticView(String exerciseDifficulty, String exerciseText, int time) {
+    public StatisticView(String exerciseDifficulty, String exerciseText, int time, int averageCharsPerMinute, double averageMistakes) {
         this.exerciseDifficulty = exerciseDifficulty;
         this.exerciseText = exerciseText;
         this.time = time;
+        this.averageCharsPerMinute = averageCharsPerMinute;
+        this.averageMistakes = averageMistakes;
     }
 
     public String getExerciseDifficulty() {
@@ -36,5 +40,21 @@ public class StatisticView {
 
     public void setTime(int time) {
         this.time = time;
+    }
+
+    public int getAverageCharsPerMinute() {
+        return averageCharsPerMinute;
+    }
+
+    public void setAverageCharsPerMinute(int averageCharsPerMinute) {
+        this.averageCharsPerMinute = averageCharsPerMinute;
+    }
+
+    public double getAverageMistakes() {
+        return averageMistakes;
+    }
+
+    public void setAverageMistakes(double averageMistakes) {
+        this.averageMistakes = averageMistakes;
     }
 }
