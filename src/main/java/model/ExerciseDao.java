@@ -2,9 +2,7 @@ package model;
 
 import client.DifficultyLevel;
 
-/**
- * Created by Александр on 15.12.2018 in 19:12.
- */
+
 public class ExerciseDao {
     private final int id;
     private final String text;

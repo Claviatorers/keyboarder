@@ -14,47 +14,56 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane prefHeight="300.0" prefWidth="300.0" style="-fx-background-image: url(&quot;images/background.jpg&quot;); -fx-background-size: cover;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="common.auth.AuthorizationController">
+<GridPane prefHeight="300.0" prefWidth="300.0"
+          style="-fx-background-image: url(&quot;images/background.jpg&quot;); -fx-background-size: cover;"
+          xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="common.auth.AuthorizationController">
     <columnConstraints>
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="105.0" />
-        <ColumnConstraints hgrow="SOMETIMES" maxWidth="238.0" minWidth="10.0" prefWidth="195.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="145.0" minWidth="10.0" prefWidth="105.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="238.0" minWidth="10.0" prefWidth="195.0"/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints />
-        <RowConstraints maxHeight="134.0" minHeight="10.0" prefHeight="124.0" vgrow="SOMETIMES" />
-        <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="124.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES" />
+        <RowConstraints/>
+        <RowConstraints maxHeight="134.0" minHeight="10.0" prefHeight="124.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="70.0" minHeight="10.0" prefHeight="53.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="124.0" minHeight="10.0" prefHeight="65.0" vgrow="SOMETIMES"/>
     </rowConstraints>
-    <Label prefHeight="20.0" prefWidth="45.0" text="Логин" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+    <Label prefHeight="20.0" prefWidth="45.0" text="Логин" GridPane.halignment="LEFT" GridPane.rowIndex="1"
+           GridPane.valignment="BOTTOM">
         <GridPane.margin>
-          <Insets left="50.0" />
+            <Insets left="50.0"/>
         </GridPane.margin>
         <font>
-          <Font size="14.0" />
+            <Font size="16.0"/>
         </font>
     </Label>
-    <TextField id="login" fx:id="login" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="140.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+    <TextField id="login" fx:id="login" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="140.0"
+               GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
         <GridPane.margin>
-          <Insets right="50.0" />
+            <Insets right="50.0"/>
         </GridPane.margin>
     </TextField>
-    <Button mnemonicParsing="false" onAction="#enterPressed" prefHeight="25.0" prefWidth="121.0" text="Вход" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
-    <Button mnemonicParsing="false" onAction="#registrationPressed" prefHeight="25.0" prefWidth="125.0" text="Регистрация" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="TOP" />
-   <ImageView fitHeight="65.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
-      <image>
-         <Image url="@images/logo.png" />
-      </image>
-      <GridPane.margin>
-         <Insets left="50.0" />
-      </GridPane.margin></ImageView>
-    <MenuBar minWidth="-Infinity" prefHeight="25.0" prefWidth="341.0">
+    <Button mnemonicParsing="false" onAction="#enterPressed" prefHeight="25.0" prefWidth="121.0" text="Вход"
+            GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER"/>
+    <Button mnemonicParsing="false" onAction="#registrationPressed" prefHeight="25.0" prefWidth="125.0"
+            text="Регистрация" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3"
+            GridPane.valignment="TOP"/>
+    <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+        <image>
+            <Image url="@images/logo.png"/>
+        </image>
+        <GridPane.margin>
+            <Insets left="100.0"/>
+        </GridPane.margin>
+    </ImageView>
+    <MenuBar minWidth="-Infinity" prefHeight="20.0" prefWidth="341.0">
         <menus>
             <Menu mnemonicParsing="false" text="Помощь">
                 <items>
-                <MenuItem mnemonicParsing="false" onAction="#help" text="Справка" />
+                    <MenuItem mnemonicParsing="false" onAction="#help" text="Справка"/>
                 </items>
                 <items>
-                    <MenuItem mnemonicParsing="false" onAction="#info" text="О разработчиках" />
+                    <MenuItem mnemonicParsing="false" onAction="#info" text="О разработчиках"/>
                 </items>
             </Menu>
         </menus>

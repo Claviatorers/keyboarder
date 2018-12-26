@@ -2,9 +2,6 @@ package common;
 
 import javafx.scene.control.Alert;
 
-/**
- * Created by Александр on 16.12.2018 in 14:47.
- */
 public class JavaFXHelper {
     private JavaFXHelper(){
         throw new UnsupportedOperationException();

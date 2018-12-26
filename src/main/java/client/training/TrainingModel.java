@@ -4,9 +4,7 @@ import client.DifficultyLevel;
 import client.Exercise;
 import client.Mode;
 
-/**
- * Created by User on 16.09.2017
- */
+
 abstract class TrainingModel {
     private int leftTime = 0;
 

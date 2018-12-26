@@ -4,9 +4,7 @@ import client.DifficultyLevel;
 
 import java.util.Date;
 
-/**
- * Created by Александр on 22.01.2018 in 12:51.
- */
+
 public class UserInfo {
     private Date trainingDate;
     private DifficultyLevel difficultyLevel;

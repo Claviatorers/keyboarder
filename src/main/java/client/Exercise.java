@@ -1,8 +1,6 @@
 package client;
 
-/**
- * Created by User on 16.09.2017
- */
+
 public class Exercise {
     private final int id;
     private String text;

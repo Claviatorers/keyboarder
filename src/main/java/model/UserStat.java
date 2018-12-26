@@ -3,9 +3,7 @@ package model;
 import java.util.Date;
 import java.util.Map;
 
-/**
- * Created by Александр on 17.12.2018 in 0:34.
- */
+
 public class UserStat {
     private final String userLogin;
     private Date lastTrainingDate;

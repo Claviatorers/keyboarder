@@ -2,9 +2,7 @@ package client;
 
 import model.Difficulty;
 
-/**
- * Created by User on 16.09.2017
- */
+
 public enum DifficultyLevel {
     Easy, Medium, Hard;
 

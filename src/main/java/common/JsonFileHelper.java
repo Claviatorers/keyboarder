@@ -26,9 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * Created by Александр on 15.12.2018 in 14:08.
- */
+
 @SuppressWarnings("ALL")
 public class JsonFileHelper {
     private static final String ERR_READ_USER_STATS = "Ошибка при чтении из файла статистики пользователей!";

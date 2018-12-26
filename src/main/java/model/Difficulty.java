@@ -4,9 +4,7 @@ import client.DifficultyLevel;
 
 import java.util.List;
 
-/**
- * Created by Александр on 16.12.2018 in 15:21.
- */
+
 public class Difficulty {
     private final DifficultyLevel level;
     private final double keyPressTime;
