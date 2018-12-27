@@ -34,13 +34,13 @@
             <Insets left="50.0"/>
         </GridPane.margin>
         <font>
-            <Font size="16.0"/>
+            <Font size="14.0"/>
         </font>
     </Label>
-    <TextField id="login" fx:id="login" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="140.0"
-               GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+    <TextField id="login" fx:id="login" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="121.0"
+               GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
         <GridPane.margin>
-            <Insets right="50.0"/>
+            <Insets right="108.0"/>
         </GridPane.margin>
     </TextField>
     <Button mnemonicParsing="false" onAction="#enterPressed" prefHeight="25.0" prefWidth="121.0" text="Вход"
@@ -48,7 +48,8 @@
     <Button mnemonicParsing="false" onAction="#registrationPressed" prefHeight="25.0" prefWidth="125.0"
             text="Регистрация" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="3"
             GridPane.valignment="TOP"/>
-    <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+    <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1"
+               GridPane.valignment="TOP">
         <image>
             <Image url="@images/logo.png"/>
         </image>
